@@ -51,6 +51,11 @@
   </script>
 
   <style>
+    /* Add smooth scrolling behavior */
+    html {
+        scroll-behavior: smooth;
+    }
+
     /* Simple fade-in animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -81,12 +86,12 @@
 <body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text font-sans transition-colors duration-300">
 
   <!-- Header -->
-  <header class="bg-light-primary dark:bg-dark-primary text-white py-8 md:py-12 shadow-lg">
-    <div class="container mx-auto px-6 text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold fade-in">Sydrenz Cao</h1>
-      <p class="mt-2 text-lg md:text-xl text-blue-100 dark:text-green-100 fade-in" style="animation-delay: 0.1s;">Aspiring Game Developer | C++, C#, Unity, ChoiceScript</p>
-      <nav class="mt-6 space-x-4 md:space-x-6 fade-in" style="animation-delay: 0.2s;">
+  <header class="bg-light-primary dark:bg-dark-primary text-white py-6 shadow-lg sticky top-0 z-40">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <h1 class="text-2xl font-extrabold">Sydrenz Cao</h1>
+      <nav class="hidden md:flex space-x-4 md:space-x-6">
         <a href="#about" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">About</a>
+        <a href="#skills" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">Skills</a>
         <a href="#projects" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">Projects</a>
         <a href="#contact" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">Contact</a>
       </nav>
@@ -94,7 +99,7 @@
   </header>
 
   <!-- Theme Toggle Button -->
-  <div class="fixed top-4 right-4 z-50">
+  <div class="fixed top-5 right-4 z-50">
     <button id="theme-toggle" class="p-2 rounded-full bg-light-card dark:bg-dark-card shadow-md hover:scale-110 transition-transform">
       <svg id="theme-toggle-dark-icon" class="hidden h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -106,148 +111,197 @@
   </div>
 
 
+  <!-- Main Content Wrapper -->
   <main class="container mx-auto px-6 py-12">
+    <!-- This new div wraps all the sections and sets a max-width -->
+    <div class="max-w-6xl mx-auto">
 
-    <!-- About Section -->
-    <section id="about" class="mb-16 scroll-mt-20">
-      <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-6 border-b-2 border-light-accent dark:border-dark-accent pb-2">About Me</h2>
-      <div class="flex flex-col md:flex-row items-center gap-8">
-        <div class="flex-shrink-0">
-          <img class="h-40 w-40 rounded-full object-cover shadow-lg" src="https://placehold.co/200x200/e2e8f0/334155?text=Sydrenz" alt="A photo of Sydrenz Cao">
+      <!-- About Section -->
+      <section id="about" class="mb-16 scroll-mt-24">
+        <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-6 border-b-2 border-light-accent dark:border-dark-accent pb-2">About Me</h2>
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="flex-shrink-0">
+            <img class="h-40 w-40 rounded-full object-cover shadow-lg" src="assets/images/profile.jpg" alt="A photo of Sydrenz Cao">
+          </div>
+          <p class="text-lg leading-relaxed">
+            Hello! I'm Sydrenz Cao, Syd for short, an aspiring game developer passionate about storytelling,
+            tactical RPGs, and interactive experiences. I specialize in C++ and Unity development,
+            with experience designing turn-based combat systems, character stat balancing, and narrative-driven gameplay.
+          </p>
         </div>
-        <p class="text-lg leading-relaxed">
-          Hello! I'm Sydrenz Cao, an aspiring game developer passionate about storytelling,
-          tactical RPGs, and interactive experiences. I specialize in C++ and Unity development,
-          with experience designing turn-based combat systems, character stat balancing, and narrative-driven gameplay.
-        </p>
-      </div>
-    </section>
+      </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="scroll-mt-20">
-      <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-4 border-b-2 border-light-accent dark:border-dark-accent pb-2">Game Projects</h2>
+      <!-- Skills & Toolkit Section -->
+      <section id="skills" class="mb-16 scroll-mt-24">
+          <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-6 border-b-2 border-light-accent dark:border-dark-accent pb-2">Skills & Toolkit</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <!-- Languages -->
+              <div>
+                  <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-3">Languages</h3>
+                  <ul class="space-y-2">
+                      <li>C++</li>
+                      <li>C#</li>
+                      <li>HLSL</li>
+                  </ul>
+              </div>
+              <!-- Engines & Libraries -->
+              <div>
+                  <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-3">Engines & Libraries</h3>
+                  <ul class="space-y-2">
+                      <li>Unity</li>
+                      <li>Unreal Engine</li>
+                      <li>Godot</li>
+                      <li>DirectX 11</li>
+                      <li>SFML</li>
+                  </ul>
+              </div>
+              <!-- Tools & Platforms -->
+              <div>
+                  <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-3">Tools & Platforms</h3>
+                  <ul class="space-y-2">
+                      <li>Git & GitHub</li>
+                      <li>Visual Studio</li>
+                  </ul>
+              </div>
+              <!-- Design & Writing -->
+              <div>
+                  <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-3">Design & Writing</h3>
+                  <ul class="space-y-2">
+                      <li>Systems Design</li>
+                      <li>Narrative Design</li>
+                      <li>UX Design</li>
+                      <li>ChoiceScript</li>
+                  </ul>
+              </div>
+          </div>
+      </section>
 
-      <!-- Filter Buttons -->
-      <div id="filter-container" class="flex flex-wrap gap-2 mb-8">
-        <button data-filter="all" class="filter-btn active px-4 py-2 text-sm font-medium rounded-full bg-light-primary text-white dark:bg-dark-primary dark:text-white shadow-sm">All</button>
-        <button data-filter="unity" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">Unity</button>
-        <button data-filter="choicescript" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">ChoiceScript</button>
-        <button data-filter="cpp" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">C++/SFML</button>
-        <button data-filter="in-progress" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">In Progress</button>
-        <button data-filter="archived" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">Archived</button>
-      </div>
+      <!-- Projects Section -->
+      <section id="projects" class="scroll-mt-24">
+        <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-4 border-b-2 border-light-accent dark:border-dark-accent pb-2">Game Projects</h2>
 
-      <!-- Project Grid -->
-      <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        <!-- PROJECT: Beyond the Thicket -->
-        <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="unity in-progress">
-          <img src="assets/images/beyond-the-thicket.png" alt="Gameplay screenshot of Beyond the Thicket" class="w-full h-48 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🌿 Beyond the Thicket</h3>
-            <p class="mb-4">An ongoing collaborative game project. My role was to design and implement the core combat system.</p>
-            <div class="flex items-center justify-between">
-              <a href="https://github.com/tyrtr456/IEPRFV-Beyond-the-Thicket" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
-              <div class="flex gap-2">
-                <span class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">Unity</span>
-                <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
+        <!-- Filter Buttons -->
+        <div id="filter-container" class="flex flex-wrap gap-2 mb-8">
+          <button data-filter="all" class="filter-btn active px-4 py-2 text-sm font-medium rounded-full bg-light-primary text-white dark:bg-dark-primary dark:text-white shadow-sm">All</button>
+          <button data-filter="unity" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">Unity</button>
+          <button data-filter="choicescript" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">ChoiceScript</button>
+          <button data-filter="cpp" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">C++/SFML</button>
+          <button data-filter="in-progress" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">In Progress</button>
+          <button data-filter="archived" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">Archived</button>
+        </div>
+
+        <!-- Project Grid -->
+        <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- PROJECT: Beyond the Thicket -->
+          <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="unity in-progress">
+            <img src="assets/images/beyond-the-thicket.png" alt="Gameplay screenshot of Beyond the Thicket" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🌿 Beyond the Thicket</h3>
+              <p class="mb-4">An ongoing collaborative game project. My role was to design and implement the core combat system.</p>
+              <div class="flex items-center justify-between">
+                <a href="https://github.com/tyrtr456/IEPRFV-Beyond-the-Thicket" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
+                <div class="flex gap-2">
+                  <span class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">Unity</span>
+                  <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- PROJECT: Project-Experipets -->
-        <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="unity in-progress">
-          <img src="assets/images/experipets.jpg" alt="Gameplay screenshot of Project-Experipets" class="w-full h-48 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🐾 Project-Experipets</h3>
-            <p class="mb-4">A monster-taming game currently in development, built with Unity.</p>
-            <div class="flex items-center justify-between">
-              <a href="https://github.com/loldope19/Project-Experipets" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
-              <div class="flex gap-2">
-                <span class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">Unity</span>
-                <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
+          <!-- PROJECT: Project-Experipets -->
+          <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="unity in-progress">
+            <img src="assets/images/experipets.jpg" alt="Gameplay screenshot of Project-Experipets" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🐾 Project-Experipets</h3>
+              <p class="mb-4">A monster-taming game currently in development, built with Unity.</p>
+              <div class="flex items-center justify-between">
+                <a href="https://github.com/loldope19/Project-Experipets" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
+                <div class="flex gap-2">
+                  <span class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">Unity</span>
+                  <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        
-        <!-- PROJECT: ¡Madre Mía! -->
-        <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="choicescript in-progress">
-          <img src="assets/images/madre-mia.png" alt="Screenshot of ¡Madre Mía!" class="w-full h-48 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🧠 ¡Madre Mía!</h3>
-            <p class="mb-4">A comedic historical CYOA game about Pedro Paterno’s absurd antics, told through the eyes of his Spanish butler.</p>
-            <div class="flex items-center justify-between">
-              <a href="https://github.com/loldope19/madre-mia" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
-              <div class="flex gap-2">
-                <span class="text-xs font-semibold bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-2 py-1 rounded-full">ChoiceScript</span>
-                <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
+          
+          <!-- PROJECT: ¡Madre Mía! -->
+          <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="choicescript in-progress">
+            <img src="assets/images/madre-mia.png" alt="Screenshot of ¡Madre Mía!" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🧠 ¡Madre Mía!</h3>
+              <p class="mb-4">A comedic historical CYOA game about Pedro Paterno’s absurd antics, told through the eyes of his Spanish butler.</p>
+              <div class="flex items-center justify-between">
+                <a href="https://cogdemos.ink/play/loldope19/madre-mia/mygame" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on CogDemos &rarr;</a>
+                <div class="flex gap-2">
+                  <span class="text-xs font-semibold bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-2 py-1 rounded-full">ChoiceScript</span>
+                  <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- PROJECT: Donkey Kong Knockoff -->
-        <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="cpp archived">
-          <img src="assets/images/sfml-kong.png" alt="Gameplay screenshot of SFML Kong" class="w-full h-48 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🐵 SFML Kong</h3>
-            <p class="mb-4">A Donkey Kong-inspired platformer made with C++ and SFML for a university course. A fun, albeit buggy, learning experience!</p>
-            <div class="flex items-center justify-between">
-              <a href="https://github.com/shrimp-n00dle/gdadprg_mco" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
-              <div class="flex gap-2">
-                <span class="text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-2 py-1 rounded-full">C++/SFML</span>
-                <span class="text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-2 py-1 rounded-full">Archived</span>
+          <!-- PROJECT: Donkey Kong Knockoff -->
+          <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="cpp archived">
+            <img src="assets/images/sfml-kong.png" alt="Gameplay screenshot of SFML Kong" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🐵 SFML Kong</h3>
+              <p class="mb-4">A Donkey Kong-inspired platformer made with C++ and SFML for a university course. A fun, albeit buggy, learning experience!</p>
+              <div class="flex items-center justify-between">
+                <a href="https://github.com/shrimp-n00dle/gdadprg_mco" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
+                <div class="flex gap-2">
+                  <span class="text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-2 py-1 rounded-full">C++/SFML</span>
+                  <span class="text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-2 py-1 rounded-full">Archived</span>
+                </div>
               </div>
             </div>
           </div>
+
         </div>
+      </section>
 
-      </div>
-    </section>
-
-    <!-- Engine & Tech Demos Section -->
-    <section id="tech-demos" class="mt-16 scroll-mt-20">
-      <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-6 border-b-2 border-light-accent dark:border-dark-accent pb-2">Engine & Tech Demos</h2>
-      <div class="space-y-4">
-        <!-- DirectX Engine 1 -->
-        <div class="bg-light-card dark:bg-dark-card p-4 rounded-lg shadow-md flex items-center gap-4">
-          <div class="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-light-primary/10 dark:bg-dark-primary/20 text-light-primary dark:text-dark-accent font-bold text-xl">DX</div>
-          <div class="flex-grow">
-            <h3 class="font-bold text-light-heading dark:text-dark-heading">DirectX 11 Engine from Scratch</h3>
-            <p class="text-sm">My personal implementation for the GDENG03 course, focusing on core rendering pipelines.</p>
+      <!-- Engine & Tech Demos Section -->
+      <section id="tech-demos" class="mt-16 scroll-mt-24">
+        <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-6 border-b-2 border-light-accent dark:border-dark-accent pb-2">Engine & Tech Demos</h2>
+        <div class="space-y-4">
+          <!-- DirectX Engine 1 -->
+          <div class="bg-light-card dark:bg-dark-card p-4 rounded-lg shadow-md flex items-center gap-4">
+            <div class="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-light-primary/10 dark:bg-dark-primary/20 text-light-primary dark:text-dark-accent font-bold text-xl">DX</div>
+            <div class="flex-grow">
+              <h3 class="font-bold text-light-heading dark:text-dark-heading">DirectX 11 Engine from Scratch</h3>
+              <p class="text-sm">My personal implementation for the GDENG03 course, focusing on core rendering pipelines.</p>
+            </div>
+            <a href="https://github.com/loldope19/GDENG03_DirectX3D_Triangle" target="_blank" class="flex-shrink-0 font-medium text-light-accent dark:text-dark-accent hover:underline">View Repo &rarr;</a>
           </div>
-          <a href="https://github.com/loldope19/GDENG03_DirectX3D_Triangle" target="_blank" class="flex-shrink-0 font-medium text-light-accent dark:text-dark-accent hover:underline">View Repo &rarr;</a>
-        </div>
-        <!-- DirectX Engine 2 -->
-        <div class="bg-light-card dark:bg-dark-card p-4 rounded-lg shadow-md flex items-center gap-4">
-          <div class="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-light-primary/10 dark:bg-dark-primary/20 text-light-primary dark:text-dark-accent font-bold text-xl">DX</div>
-           <div class="flex-grow">
-            <h3 class="font-bold text-light-heading dark:text-dark-heading">Collaborative DirectX 11 Engine</h3>
-            <p class="text-sm">A group project for GDENG03. I contributed the fog and shader systems.</p>
+          <!-- DirectX Engine 2 -->
+          <div class="bg-light-card dark:bg-dark-card p-4 rounded-lg shadow-md flex items-center gap-4">
+            <div class="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-light-primary/10 dark:bg-dark-primary/20 text-light-primary dark:text-dark-accent font-bold text-xl">DX</div>
+             <div class="flex-grow">
+              <h3 class="font-bold text-light-heading dark:text-dark-heading">Collaborative DirectX 11 Engine</h3>
+              <p class="text-sm">A group project for GDENG03. I contributed the fog and shader systems.</p>
+            </div>
+            <a href="https://github.com/FurehXD/GDENG03-Engine" target="_blank" class="flex-shrink-0 font-medium text-light-accent dark:text-dark-accent hover:underline">View Repo &rarr;</a>
           </div>
-          <a href="https://github.com/FurehXD/GDENG03-Engine" target="_blank" class="flex-shrink-0 font-medium text-light-accent dark:text-dark-accent hover:underline">View Repo &rarr;</a>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="mt-16 scroll-mt-20">
-      <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-4 border-b-2 border-light-accent dark:border-dark-accent pb-2">Get In Touch</h2>
-      <div class="text-center bg-light-card dark:bg-dark-card p-8 rounded-lg">
-        <p class="text-lg mb-4">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
-        <a href="mailto:sydrenz.cao@example.com" class="inline-block bg-light-primary dark:bg-dark-primary text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity">
-          Say Hello
-        </a>
-        <div class="mt-6 flex justify-center space-x-6">
-          <a href="https://github.com/loldope19" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">GitHub</a>
-          <a href="#" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">LinkedIn</a>
-          <a href="#" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">itch.io</a>
+      <!-- Contact Section -->
+      <section id="contact" class="mt-16 scroll-mt-24">
+        <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-4 border-b-2 border-light-accent dark:border-dark-accent pb-2">Get In Touch</h2>
+        <div class="text-center bg-light-card dark:bg-dark-card p-8 rounded-lg">
+          <p class="text-lg mb-4">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
+          <a href="mailto:sydrenz.cao@example.com" class="inline-block bg-light-primary dark:bg-dark-primary text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity">
+            Say Hello
+          </a>
+          <div class="mt-6 flex justify-center space-x-6">
+            <a href="https://github.com/loldope19" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">GitHub</a>
+            <a href="#" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">LinkedIn</a>
+            <a href="#" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">itch.io</a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
+    </div>
   </main>
 
   <!-- Footer -->
