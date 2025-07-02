@@ -1,7 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sydrenz Cao | Game Developer Portfolio</title>
+  <style>
+    :root {
+      --main-color: #4CAF50;
+      --bg-color: #1e1e1e;
+      --text-color: #f0f0f0;
+      --accent-color: #81c784;
+      --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--main-color);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    nav {
+      margin-top: 1rem;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .section {
+      padding: 2rem 1rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.5rem;
+    }
+
+    .project {
+      margin: 1.5rem 0;
+      background: #2a2a2a;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .project h3 {
+      margin-top: 0;
+      color: var(--accent-color);
+    }
+
+    footer {
+      background: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      nav a {
+        display: block;
+        margin: 0.5rem 0;
+      }
+    }
+  </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+
+  <header>
+    <h1>Sydrenz Cao</h1>
+    <p>Aspiring Game Developer | C++, C#, Unity, SFML</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>
+      Hello! I'm Sydrenz Cao, an aspiring game developer passionate about storytelling,
+      tactical RPGs, and interactive experiences. I specialize in C++ and Unity development,
+      with experience designing turn-based combat systems, character stat balancing, and narrative-driven gameplay.
+    </p>
+  </section>
+
+  <section id="projects" class="section">
+    <h2>Projects</h2>
+
+    <div class="project">
+      <h3>⚔️ Tactical RPG Framework</h3>
+      <p>A custom tactical RPG system with stat growth, class lines, and a turn-passing mechanic based on attack type. Written in Unity C#.</p>
+      <p><a href="https://github.com/yourusername/tactical-rpg-framework" target="_blank">View on GitHub</a></p>
+    </div>
+
+    <div class="project">
+      <h3>🧠 ¡Madre Mía! (ChoiceScript)</h3>
+      <p>A comedic historical CYOA game about Pedro Paterno’s absurd antics, told through the eyes of his Spanish butler. Currently in development.</p>
+      <p><a href="https://github.com/yourusername/madre-mia" target="_blank">View on GitHub</a></p>
+    </div>
+
+    <!-- Add more projects as needed -->
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Contact</h2>
+    <p>You can reach me through:</p>
+    <ul>
+      <li>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></li>
+      <li>GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></li>
+      <!-- Add more if needed (LinkedIn, itch.io, etc.) -->
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Sydrenz Cao. Built with HTML & CSS. Hosted on GitHub Pages.</p>
+  </footer>
+
 </body>
 </html>
