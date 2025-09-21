@@ -77,6 +77,24 @@
       margin-top: 0;
       margin-bottom: 0;
     }
+
+    .modal {
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal-content {
+      transition: transform 0.3s ease;
+    }
+    .modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .modal.hidden .modal-content {
+      transform: scale(0.95) translateY(-10px);
+    }
+
+    .carousel-track {
+      transition: transform 0.4s ease-in-out;
+    }
   </style>
 </head>
 <body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text font-sans transition-colors duration-300">
@@ -90,7 +108,6 @@
         <a href="#skills" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">Skills</a>
         <a href="#projects" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">Projects</a>
         <a href="#contact" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">Contact</a>
-        <a href="e-portfolio.html" class="bg-white/20 hover:bg-white/30 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">E-Portfolio</a>
       </nav>
     </div>
   </header>
@@ -191,68 +208,131 @@
         <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
           
           <!-- PROJECT: Beyond the Thicket -->
-          <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="unity in-progress">
-            <img src="assets/images/beyond-the-thicket.png" alt="Gameplay screenshot of Beyond the Thicket" class="w-full h-48 object-cover">
-            <div class="p-6">
+          <div 
+            class="project-card project-modal-trigger cursor-pointer bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" 
+            data-tags="unity in-progress"
+            data-title="🌿 Beyond the Thicket"
+            data-overview="On this collaborative tactical RPG, I was the core programmer responsible for the entire turn-based combat system. My role was to take the system from an initial concept to a fully-featured combat loop. This included everything from party controls and enemy AI to the unique 'Action Pass' initiative system."
+            data-responsibilities="<li><strong>Scene & State Management:</strong> Architected the dynamic combat scene and managed game state persistence between the overworld and combat encounters.</li>
+            <li><strong>Core Player Systems:</strong> Implemented the full player experience, including the party system, stat persistence, and the complete victory/defeat loop.</li>
+            <li><strong>UI & Input:</strong> Revamped the combat UI and input logic from a designer's wireframe to create a more intuitive and responsive interface.</li>
+            <li><strong>Gameplay Mechanics:</strong> Designed and scripted key mechanics like the 'Action Pass' turn order, a versatile status effect system, and controllable companions.</li>
+            <li><strong>Quality-of-Life Features:</strong> Added a pre-attack damage preview, combat speed toggle, and a context-sensitive UI to clearly display player controls.</li>
+            "
+            data-learnings="
+            <p>A key challenge arose late in development: a proposal to overhaul the input system for full mouse control. My investigation revealed this would require a total rewrite of the core 875-line combat manager, posing a major risk to the project's timeline.</p>
+            <p>This became a crucial lesson in <strong>technical scoping and risk assessment</strong>. Instead of a high-risk rewrite, I made the pragmatic decision to refine the existing keyboard-centric system.</p><p>As a solution, I developed a context-aware UI that guides the player with the correct controls for each phase of combat. This ensured an accessible experience while keeping the project on track and demonstrated the importance of adapting design to technical constraints.</p>"
+            data-gallery='["assets/images/beyond-the-thicket.png", "assets/images/beyond-the-thicket2.png", "assets/images/beyond-the-thicket3.png"]'>
+            
+            <img src="assets/images/beyond-the-thicket.png" alt="Gameplay screenshot of Beyond the Thicket" class="w-full h-48 object-cover pointer-events-none">
+            <div class="p-6 pointer-events-none">
               <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🌿 Beyond the Thicket</h3>
-              <p class="mb-4">An ongoing collaborative game project. My role was to design and implement the core combat system.</p>
+              <p class="mb-4">A 4-month collaborative game project. My role was to design and implement the core combat system.</p>
               <div class="flex items-center justify-between">
-                <a href="https://github.com/tyrtr456/IEPRFV-Beyond-the-Thicket" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
+                <a href="https://thicket-studios.itch.io/through-the-thicket" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline pointer-events-auto">View on Itch.io &rarr;</a>
                 <div class="flex gap-2">
                   <span class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">Unity</span>
-                  <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
+                  <span class="text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-2 py-1 rounded-full">Archived</span>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- PROJECT: Project-Experipets -->
-          <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="unity in-progress">
-            <img src="assets/images/experipets.png" alt="Gameplay screenshot of Project-Experipets" class="w-full h-48 object-cover">
-            <div class="p-6">
+          <div 
+            class="project-card project-modal-trigger cursor-pointer bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" 
+            data-tags="unity in-progress"
+            data-title="🐾 Project-Experipets"
+            data-overview="Experipets is a virtual pet management game where the player cares for a creature through a retro-style desktop OS interface. As one of two programmers on a five-person student team, my primary role was to build the game's foundational systems. I developed the core player-facing mechanics, including the inventory, shop, and the advanced drag-and-drop interactions for pet care."
+            data-responsibilities="
+            <li><strong>Shop & Inventory Systems:</strong> Architected and programmed the game's economy loop from the ground up, including the barebones shop and the corresponding player inventory system.</li>
+            <li><strong>Core Interaction Mechanics:</strong> Developed the primary pet care gameplay, implementing a complex drag-and-drop system for feeding and cleaning items. I also scripted unique mechanics for various toys, such as the click-to-throw ball.</li>
+            <li><strong>Narrative Integration:</strong> Integrated the dialogue and task systems into the main game loop, ensuring that story progression was correctly tied to the completion of major tasks.</li>
+            <li><strong>Critical Bug Fixes:</strong> Handled key debugging tasks, including resolving a critical bug that prevented player data from resetting correctly after a 'Game Over' state, ensuring a stable player experience.</li>
+            "
+            data-learnings="
+            <p>This project was a significant exercise in building multiple interconnected gameplay systems. A major challenge was ensuring the discrete systems I built, such as the shop, inventory, and stat managers, all communicated effectively to create a seamless player experience, especially after a major UI and level revamp mid-development.</p>
+            <p>Working as one of two programmers taught me the importance of clear communication and task delegation. For instance, after building the initial inventory, the task and day systems were handled by my partner, allowing us to develop in parallel.</p>
+            <p>Finally, I learned the importance of robust player data management. Debugging the 'Game Over' bug that failed to reset progress gave me a much deeper appreciation for building resilient save and state-management logic from the outset.</p>"
+            data-gallery='["assets/images/experipets.png", "assets/images/experipets2.png", "assets/images/experipets3.png"]'>
+            
+            <img src="assets/images/experipets.png" alt="Gameplay screenshot of Project-Experipets" class="w-full h-48 object-cover pointer-events-none">
+            <div class="p-6 pointer-events-none">
               <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🐾 Project-Experipets</h3>
               <p class="mb-4">A monster-taming game currently in development, built with Unity.</p>
               <div class="flex items-center justify-between">
-                <a href="https://github.com/loldope19/Project-Experipets" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
-                <div class="flex gap-2">
-                  <span class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">Unity</span>
-                  <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
-                </div>
+              <a href="https://github.com/loldope19/Project-Experipets" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline pointer-events-auto">View on GitHub &rarr;</a>
+              <div class="flex gap-2">
+                <span class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">Unity</span>
+                <span class="text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-2 py-1 rounded-full">Archived</span>
+              </div>
               </div>
             </div>
-          </div>
+            </div>
           
           <!-- PROJECT: ¡Madre Mía! -->
-          <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="choicescript in-progress">
-            <img src="assets/images/madre-mia.png" alt="Screenshot of ¡Madre Mía!" class="w-full h-48 object-cover">
-            <div class="p-6">
+          <div 
+            class="project-card project-modal-trigger cursor-pointer bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" 
+            data-tags="choicescript in-progress"
+            data-title="🧠 ¡Madre Mía!"
+            data-overview="Created in about a week for a university course, Madre Mía is a humorous, historical-fiction game built in ChoiceScript. The game is a short, interactive prototype where you play as the long-suffering butler to the theatrical Pedro Paterno in late 19th-century Madrid. Your goal is to prevent his grand ambitions from collapsing into complete disgrace during a high-society ball."
+            data-responsibilities="
+              <li><strong>Programming (ChoiceScript):</strong> Rapidly prototyped the entire interactive experience, scripting the branching logic and state management. I implemented a stat-based choice system with over 15 variables to track player skills, story flags, and character relationships.</li>
+              <li><strong>Narrative Design & Writing:</strong> As a newfound hobby for this project, I wrote a comedic script designed to reintroduce historical figures in a fresh, relatable way. The narrative focuses on player choice, humor, and crisis management.</li>
+            "
+            data-learnings="
+              <p>This project was my answer to the question: How can I use my programming talent to make history engaging? It was a personal exploration into the intersection of coding and storytelling, inspired by José Rizal's own use of novels to influence public thought.</p><p>The goal wasn't to create a rigid history lesson, but to capture the spirit of an era through humor and player agency. It was a fantastic lesson in rapid prototyping, demonstrating how a choice-based narrative can bring historical themes to life in a way that is interactive and fun, rather than just informational.</p>
+
+              <p>Frankly, this is the fastest that I have ever written a game, and will probably be the fastest for a long time unless I spontaneously decide to join a Game Jam.</p>
+            "
+            data-gallery='["assets/images/madre-mia.png", "assets/images/madre-mia2.png", "assets/images/madre-mia3.png"]'>
+            
+            <img src="assets/images/madre-mia.png" alt="Screenshot of ¡Madre Mía!" class="w-full h-48 object-cover pointer-events-none">
+            <div class="p-6 pointer-events-none">
               <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🧠 ¡Madre Mía!</h3>
-              <p class="mb-4">A comedic historical CYOA game about Pedro Paterno’s absurd antics, told through the eyes of his Spanish butler.</p>
+              <p class="mb-4">A comedic historical CYOA game about Pedro Paterno's absurd antics, told through the eyes of his Spanish butler.</p>
               <div class="flex items-center justify-between">
-                <a href="https://cogdemos.ink/play/loldope19/madre-mia/mygame" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on CogDemos &rarr;</a>
-                <div class="flex gap-2">
-                  <span class="text-xs font-semibold bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-2 py-1 rounded-full">ChoiceScript</span>
-                  <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
-                </div>
+              <a href="https://cogdemos.ink/play/loldope19/madre-mia/mygame" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline pointer-events-auto">View on CogDemos &rarr;</a>
+              <div class="flex gap-2">
+                <span class="text-xs font-semibold bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-2 py-1 rounded-full">ChoiceScript</span>
+                <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
+              </div>
               </div>
             </div>
-          </div>
+            </div>
 
           <!-- PROJECT: Donkey Kong Knockoff -->
-          <div class="project-card bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" data-tags="cpp archived">
-            <img src="assets/images/sfml-kong.png" alt="Gameplay screenshot of SFML Kong" class="w-full h-48 object-cover">
-            <div class="p-6">
+            <div 
+            class="project-card project-modal-trigger cursor-pointer bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" 
+            data-tags="cpp archived"
+            data-title="🐵 SFML Kong"
+            data-overview="SFML Kong is a 2D arcade platformer developed for a university course. As one of two programmers on the team, my primary responsibility was building the core engine architecture from scratch in C++. I implemented the entire game state machine, the custom physics and collision systems, the UI, and the audio management."
+            data-responsibilities="
+              <li><strong>Engine & State Management:</strong> Architected the game's foundational structure in C++, implementing and managing all game states including the <strong>Main Menu</strong>, <strong>Game Scene</strong>, <strong>Pause Screen</strong>, and <strong>Results Screen</strong>.</li>
+              <li><strong>Custom C++ Physics:</strong> Wrote the 2D platforming physics from the ground up, programming the complete <strong>map collision system</strong> and the initial, complex logic for <strong>player-ladder interactions</strong>.</li>
+              <li><strong>Gameplay Systems & UI:</strong> Programmed key systems like the singleton-based <strong>ScoreManager</strong> and implemented the UI for all game scenes.</li>
+              <li><strong>Audio Implementation:</strong> Handled the audio integration, implementing the <strong>background music</strong> and performing a complete <strong>revamp of the SFX Manager</strong>.</li>
+            "
+            data-learnings="
+              <p>This project was a crucial, hands-on lesson in C++ game architecture. The most significant challenge was building a 2D platforming controller from scratch; systematically building the collision system from basic map interactions to complex ladder physics was an immense practical lesson in the nuances of low-level game programming.</p>
+              
+              <p>The project also highlighted the importance of proper environment setup. An early effort involved configuring the SFML environment and standardizing the screen size to create a stable foundation for feature development. As a collaborative project, it was also valuable experience in a team-based Git workflow, frequently merging feature branches to integrate my work on the core engine with my partner's work on gameplay elements.</p>
+            "
+            data-gallery='["assets/images/sfml-kong.png", "assets/images/sfml-kong2.png"]'>
+            
+            <img src="assets/images/sfml-kong2.png" alt="Gameplay screenshot of SFML Kong" class="w-full h-48 object-cover pointer-events-none">
+            <div class="p-6 pointer-events-none">
               <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🐵 SFML Kong</h3>
               <p class="mb-4">A Donkey Kong-inspired platformer made with C++ and SFML for a university course. A fun, albeit buggy, learning experience!</p>
               <div class="flex items-center justify-between">
-                <a href="https://github.com/shrimp-n00dle/gdadprg_mco" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline">View on GitHub &rarr;</a>
-                <div class="flex gap-2">
-                  <span class="text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-2 py-1 rounded-full">C++/SFML</span>
-                  <span class="text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-2 py-1 rounded-full">Archived</span>
-                </div>
+              <a href="https://github.com/shrimp-n00dle/gdadprg_mco" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline pointer-events-auto">View on GitHub &rarr;</a>
+              <div class="flex gap-2">
+                <span class="text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-2 py-1 rounded-full">C++/SFML</span>
+                <span class="text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-2 py-1 rounded-full">Archived</span>
+              </div>
               </div>
             </div>
-          </div>
+            </div>
 
         </div>
       </section>
@@ -309,6 +389,51 @@
       </section>
     </div>
   </main>
+
+  <div id="project-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
+    <div id="modal-content" class="modal-content bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto transform">
+      <div class="p-8 relative">
+        <button id="modal-close-btn" class="absolute top-4 right-4 text-light-text dark:text-dark-text hover:opacity-75 transition-opacity z-10">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <h2 id="modal-title" class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-4">
+          </h2>
+
+        <hr class="border-light-accent dark:border-dark-accent mb-6">
+
+        <div id="modal-gallery-container" class="relative w-full mb-8">
+          <div class="overflow-hidden rounded-lg shadow-md">
+            <div id="modal-gallery-track" class="carousel-track flex">
+              </div>
+          </div>
+          <button id="carousel-btn-prev" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 transition-opacity disabled:opacity-0 disabled:cursor-not-allowed">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+          </button>
+          <button id="carousel-btn-next" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 transition-opacity disabled:opacity-0 disabled:cursor-not-allowed">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+
+        <div class="space-y-6 text-lg leading-relaxed">
+          <div>
+            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">Project Overview</h3>
+            <p id="modal-overview"></p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">My Role & Responsibilities</h3>
+            <ul id="modal-responsibilities" class="space-y-4 list-disc list-inside"></ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">Challenges & Learnings</h3>
+            <div id="modal-learnings" class="space-y-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="bg-light-bg dark:bg-dark-bg border-t border-gray-200 dark:border-gray-700 mt-16">
@@ -368,6 +493,130 @@
               card.classList.add('hidden-project');
             }
           });
+        }
+      });
+
+      // --- MODAL SCRIPT (with Carousel Logic) ---
+      const modal = document.getElementById('project-modal');
+      const modalCloseBtn = document.getElementById('modal-close-btn');
+      const projectGrid = document.getElementById('project-grid');
+
+      // Get references to the modal's content elements
+      const modalTitle = document.getElementById('modal-title');
+      const modalOverview = document.getElementById('modal-overview');
+      const modalResponsibilities = document.getElementById('modal-responsibilities');
+      const modalLearnings = document.getElementById('modal-learnings');
+
+      // Carousel specific elements
+      const galleryTrack = document.getElementById('modal-gallery-track');
+      const prevButton = document.getElementById('carousel-btn-prev');
+      const nextButton = document.getElementById('carousel-btn-next');
+      let currentIndex = 0;
+      let totalImages = 0;
+
+      // Function to show a specific image in the carousel
+      const showImage = (index) => {
+        const offset = -index * 100;
+        galleryTrack.style.transform = `translateX(${offset}%)`;
+
+        // Update button states
+        prevButton.disabled = index === 0;
+        nextButton.disabled = index === totalImages - 1;
+      };
+
+      // Function to open and populate the modal
+      const openModal = (card) => {
+        // Reset carousel state
+        currentIndex = 0;
+        
+        // Populate text content
+        modalTitle.textContent = card.dataset.title;
+        modalOverview.textContent = card.dataset.overview;
+        modalResponsibilities.innerHTML = card.dataset.responsibilities;
+        modalLearnings.innerHTML = card.dataset.learnings;
+        
+        // Populate the gallery track
+        galleryTrack.innerHTML = ''; // Clear previous images
+        try {
+          const images = JSON.parse(card.dataset.gallery);
+          totalImages = images.length;
+
+          images.forEach(src => {
+            // Create a container for each image to control sizing
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'flex-shrink-0 w-full aspect-video'; // aspect-video gives a 16:9 ratio
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = `${card.dataset.title} screenshot`;
+            img.className = 'w-full h-full object-cover'; // object-cover prevents distortion
+            
+            imageContainer.appendChild(img);
+            galleryTrack.appendChild(imageContainer);
+          });
+        } catch (e) {
+          console.error("Could not parse gallery data:", e);
+          totalImages = 0;
+        }
+        
+        // Hide buttons if there's only one image or no images
+        if (totalImages <= 1) {
+          prevButton.style.display = 'none';
+          nextButton.style.display = 'none';
+        } else {
+          prevButton.style.display = 'block';
+          nextButton.style.display = 'block';
+        }
+
+        // Set the initial state of the carousel
+        showImage(currentIndex);
+
+        // Show the modal
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      };
+
+      // Function to close the modal
+      const closeModal = () => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore background scrolling
+      };
+
+      // --- Event Listeners ---
+
+      // Listener for opening the modal
+      projectGrid.addEventListener('click', (e) => {
+        const card = e.target.closest('.project-modal-trigger');
+        if (card) {
+          openModal(card);
+        }
+      });
+
+      // Listeners for closing the modal
+      modalCloseBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) { // Close if the backdrop is clicked
+          closeModal();
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          closeModal();
+        }
+      });
+
+      // Listeners for carousel navigation
+      nextButton.addEventListener('click', () => {
+        if (currentIndex < totalImages - 1) {
+          currentIndex++;
+          showImage(currentIndex);
+        }
+      });
+
+      prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          showImage(currentIndex);
         }
       });
     });
