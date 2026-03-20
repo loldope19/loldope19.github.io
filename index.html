@@ -637,6 +637,28 @@
   }
   .highlight-block strong { color: var(--accent2); font-weight: 500; }
 
+  /* PROJECT CARD IMAGES */
+  .project-card { position: relative; overflow: hidden; }
+  .project-bg-img {
+    position: absolute;
+    top: 0; right: 0;
+    width: 52%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.18;
+    mask-image: linear-gradient(to left, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, black 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  }
+  .project-card > *:not(.project-bg-img) { position: relative; z-index: 1; }
+  .project-card.featured .project-bg-img {
+    width: 45%;
+    opacity: 0.15;
+  }
+
   /* CONTACT */
   .contact-grid {
     display: grid;
@@ -851,7 +873,7 @@
     </div>
     <div class="about-grid">
       <div class="about-text reveal">
-        <p>Final-year <strong>Game Development student at De La Salle University Laguna Campus</strong>, specialising in the systems and tooling layer that sits between the engine and the designer.</p>
+        <p>Final-year <strong>Game Development student at De La Salle University - Laguna Campus</strong>, specialising in the systems and tooling layer that sits between the engine and the designer.</p>
         <p>My focus is on <strong>Unity editor tooling, gameplay systems architecture, and runtime performance</strong> for mobile platforms. I care about the kind of work that makes other people's jobs easier — a level editor that a designer can pick up without a tutorial, an asset pipeline that loads what it needs and nothing more.</p>
         <p>Currently finishing a vertical slice with a custom Unity level editor, Addressables integration, and a codebase structured with Assembly Definitions. Looking for a <strong>junior tools/systems role in the UK</strong> after gaining local industry experience.</p>
       </div>
@@ -859,7 +881,7 @@
         <div class="stat-card">
           <div class="label">status</div>
           <div class="value"><span class="status-dot"></span>Final year</div>
-          <div class="sub">DLSU Laguna — graduating mid-2026</div>
+          <div class="sub">DLSU Manila — graduating mid-2026</div>
         </div>
         <div class="stat-card">
           <div class="label">specialisation</div>
@@ -944,6 +966,7 @@
 
       <!-- FEATURED: Curation Curiosity -->
       <div class="project-card featured reveal">
+        <img src="https://img.itch.zone/aW1nLzI2MTkxMjA1LnBuZw==/original/lroljK.png" alt="" class="project-bg-img" aria-hidden="true">
         <div>
           <span class="project-badge badge-featured">featured — vertical slice</span>
         </div>
@@ -965,13 +988,14 @@
             </div>
           </div>
           <div class="project-links">
-            <a href="https://loldope19.itch.io/curation-curiosity-v041" target="_blank" class="project-link">↗ play on itch.io</a>
+            <a href="https://loldope19.itch.io/curation-curiosity-v04" target="_blank" class="project-link">↗ play on itch.io</a>
           </div>
         </div>
       </div>
 
       <!-- Beyond the Thicket -->
       <div class="project-card reveal">
+        <img src="https://loldope19.github.io/assets/images/beyond-the-thicket.png" alt="" class="project-bg-img" aria-hidden="true">
         <div>
           <span class="project-badge badge-archived">archived</span>
           <h3 class="project-title">Beyond the Thicket</h3>
@@ -990,6 +1014,7 @@
 
       <!-- DirectX Engine -->
       <div class="project-card reveal">
+        <img src="https://loldope19.github.io/assets/images/experipets.png" alt="" class="project-bg-img" aria-hidden="true">
         <div>
           <span class="project-badge badge-archived">archived — coursework</span>
           <h3 class="project-title">DirectX 11 Rendering Engine</h3>
@@ -1008,6 +1033,7 @@
 
       <!-- SFML Kong -->
       <div class="project-card reveal">
+        <img src="https://loldope19.github.io/assets/images/sfml-kong2.png" alt="" class="project-bg-img" aria-hidden="true">
         <div>
           <span class="project-badge badge-archived">archived — coursework</span>
           <h3 class="project-title">SFML Kong</h3>
@@ -1083,8 +1109,8 @@
 </main>
 
 <footer>
-  <span class="footer-text">© 2025 <span>Sydrenz Cao</span> — built with HTML, Tailwind CSS, and a little bit of JavaScript.</span>
-  <span class="footer-text">Manila, PH → <span>Sunderland, UK</span> (soon™)</span>
+  <span class="footer-text">© 2026 <span>Sydrenz Cao</span> — built with HTML, CSS, and a bit of JavaScript.</span>
+  <span class="footer-text">Laguna, PH → <span>Sunderland, UK</span> (soon™)</span>
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -1167,8 +1193,7 @@
     document.getElementById('cursor').style.display = 'none';
     document.getElementById('cursorRing').style.display = 'none';
   }
- 
-  // Parallax glow orb
+
   document.addEventListener('mousemove', e => {
     const orb = document.querySelector('.glow-orb');
     const x = (e.clientX / window.innerWidth - 0.5) * 40;
