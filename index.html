@@ -1083,12 +1083,11 @@
 </main>
 
 <footer>
-  <span class="footer-text">© 2025 <span>Sydrenz Cao</span> — built with intention, not a template.</span>
+  <span class="footer-text">© 2025 <span>Sydrenz Cao</span> — built with HTML, Tailwind CSS, and a little bit of JavaScript.</span>
   <span class="footer-text">Manila, PH → <span>Sunderland, UK</span> (soon™)</span>
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Theme toggle
   const html = document.documentElement;
   const toggle = document.getElementById('themeToggle');
   const darkPill = document.getElementById('darkPill');
@@ -1109,7 +1108,6 @@
     setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
 
-  // Scroll reveal — with iframe/sandbox fallback
   const reveals = document.querySelectorAll('.reveal');
   function revealAll() { reveals.forEach(el => el.classList.add('visible')); }
 
@@ -1123,7 +1121,6 @@
       });
     }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
     reveals.forEach(el => observer.observe(el));
-    // Fallback: if nothing has revealed after 1.5s, just show everything
     setTimeout(() => {
       const hidden = document.querySelectorAll('.reveal:not(.visible)');
       if (hidden.length > 0) revealAll();
@@ -1132,7 +1129,6 @@
     revealAll();
   }
 
-  // Custom cursor (desktop only)
   if (window.matchMedia('(pointer: fine)').matches) {
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
@@ -1164,4 +1160,20 @@
         ring.style.width = '32px';
         ring.style.height = '32px';
         ring.style.opacity = '0.5';
-        curs
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+  } else {
+    document.getElementById('cursor').style.display = 'none';
+    document.getElementById('cursorRing').style.display = 'none';
+  }
+ 
+  // Parallax glow orb
+  document.addEventListener('mousemove', e => {
+    const orb = document.querySelector('.glow-orb');
+    const x = (e.clientX / window.innerWidth - 0.5) * 40;
+    orb.style.transform = `translateX(calc(-50% + ${x}px))`;
+  });
+</script>
+</body>
+</html>
