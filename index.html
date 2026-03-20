@@ -1,626 +1,1167 @@
 <!DOCTYPE html>
-<html lang="en" class="dark"> <!-- Default to dark mode -->
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sydrenz Cao | Game Developer Portfolio</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sydrenz Cao — Systems & Tools Programmer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a24;
+    --surface: #1e1e2a;
+    --surface2: #252535;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0eff8;
+    --text2: #9997b8;
+    --text3: #5e5c7a;
+    --accent: #7c6af7;
+    --accent2: #a594ff;
+    --accent-glow: rgba(124,106,247,0.25);
+    --accent-subtle: rgba(124,106,247,0.1);
+    --green: #4ade9a;
+    --amber: #f5c842;
+    --red: #f56c6c;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  [data-theme="light"] {
+    --bg: #f7f6ff;
+    --bg2: #f0eeff;
+    --bg3: #e8e5ff;
+    --surface: #ffffff;
+    --surface2: #f3f1ff;
+    --border: rgba(80,60,200,0.1);
+    --border2: rgba(80,60,200,0.18);
+    --text: #12101e;
+    --text2: #4a4670;
+    --text3: #9997b8;
+    --accent: #5b48e8;
+    --accent2: #7c6af7;
+    --accent-glow: rgba(91,72,232,0.15);
+    --accent-subtle: rgba(91,72,232,0.08);
+    --green: #1a9c5b;
+    --amber: #c4900a;
+    --red: #d93636;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background var(--transition), color var(--transition);
+  }
 
-  <!-- Tailwind CSS for modern styling -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
 
-  <script>
-    // Custom Tailwind theme configuration
-    tailwind.config = {
-      darkMode: 'class', // Enable class-based dark mode
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            // Light Mode Colors
-            light: {
-              bg: '#f3f4f6',
-              card: '#ffffff',
-              text: '#111827',
-              heading: '#000000',
-              primary: '#2563eb',
-              accent: '#3b82f6',
-            },
-            // Dark Mode Colors
-            dark: {
-              bg: '#111827',
-              card: '#1f2937',
-              text: '#d1d5db',
-              heading: '#ffffff',
-              primary: '#4CAF50',
-              accent: '#81c784',
-            }
-          }
-        }
-      }
-    }
-  </script>
+  /* GRID BACKGROUND */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+  }
 
-  <style>
-    html {
-        scroll-behavior: smooth;
-    }
+  /* GLOW ORB */
+  .glow-orb {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.5s;
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2.5rem;
+    background: rgba(10,10,15,0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background var(--transition);
+  }
+  [data-theme="light"] nav { background: rgba(247,246,255,0.75); }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+  .nav-logo .dot { color: var(--accent); }
+  .nav-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+    transition: box-shadow var(--transition), transform var(--transition);
+    flex-shrink: 0;
+  }
+  .nav-logo:hover .nav-avatar {
+    box-shadow: 0 0 18px var(--accent-glow);
+    transform: scale(1.07);
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text2);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color var(--transition);
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform var(--transition);
+    transform-origin: left;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .theme-toggle {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 100px;
+    padding: 0.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    transition: border-color var(--transition);
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+  .toggle-pill {
+    width: 28px; height: 26px;
+    border-radius: 100px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    transition: background var(--transition);
+    cursor: pointer;
+  }
+  .toggle-pill.active { background: var(--accent-subtle); }
 
-    .fade-in {
-      animation: fadeIn 0.5s ease-out forwards;
-    }
+  /* MAIN CONTENT */
+  main { position: relative; z-index: 1; }
 
-    .project-card {
-      transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, max-height 0.5s ease-in-out, margin 0.5s ease-in-out, padding 0.5s ease-in-out;
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+    padding: 8rem 2.5rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-content { display: flex; flex-direction: column; }
+  .hero-photo-wrap {
+    position: relative;
+    width: 340px;
+    height: 440px;
+    flex-shrink: 0;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+  .hero-photo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 24px 24px 80px 24px;
+    background: linear-gradient(135deg, var(--accent), transparent 60%);
+    z-index: 0;
+  }
+  .hero-photo-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
+    width: 120px;
+    height: 120px;
+    border-right: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    border-radius: 0 0 16px 0;
+    opacity: 0.4;
+    z-index: -1;
+  }
+  .hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 23px 23px 79px 23px;
+    position: relative;
+    z-index: 1;
+    display: block;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .hero-photo-tag {
+    position: absolute;
+    bottom: 28px;
+    left: -20px;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 0.6rem 0.9rem;
+    z-index: 2;
+    backdrop-filter: blur(12px);
+  }
+  .hero-photo-tag .tag-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .hero-photo-tag .tag-value {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 0.1rem;
+  }
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding-top: 7rem;
     }
+    .hero-photo-wrap {
+      display: none;
+    }
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+  .hero-name .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--text3);
+  }
+  [data-theme="light"] .hero-name .line2 { -webkit-text-stroke: 1.5px var(--border2); }
+  .hero-name .accent-word { color: var(--accent2); }
+  .hero-tagline {
+    font-size: 1.1rem;
+    color: var(--text2);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .hero-tagline strong { color: var(--text); font-weight: 500; }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    padding: 0.75rem 1.5rem;
+    border-radius: 100px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 24px var(--accent-glow);
+  }
+  .btn-primary:hover {
+    background: var(--accent2);
+    box-shadow: 0 0 36px var(--accent-glow);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border2);
+  }
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    background: var(--accent-subtle);
+    transform: translateY(-1px);
+  }
+  .hero-scroll {
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.8s forwards;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  .scroll-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
 
-    .project-card.hidden-project {
-      opacity: 0;
-      transform: scale(0.9);
-      max-height: 0;
-      padding-top: 0;
-      padding-bottom: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-    }
+  /* SECTION WRAPPER */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 1rem;
+  }
 
-    .modal {
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-    .modal-content {
-      transition: transform 0.3s ease;
-    }
-    .modal.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-    .modal.hidden .modal-content {
-      transform: scale(0.95) translateY(-10px);
-    }
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--text2);
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+    font-size: 1.05rem;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    transition: border-color var(--transition), transform var(--transition);
+    cursor: default;
+  }
+  .stat-card:hover { border-color: var(--accent); transform: translateX(4px); }
+  .stat-card .label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .stat-card .value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .stat-card .sub {
+    font-size: 0.8rem;
+    color: var(--text2);
+    margin-top: 0.2rem;
+  }
+  .status-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    margin-right: 0.4rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
 
-    .carousel-track {
-      transition: transform 0.4s ease-in-out;
-    }
-  </style>
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  }
+  .skill-group:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px var(--accent-glow);
+  }
+  .skill-group-title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+    background: var(--bg3);
+    color: var(--text2);
+    border: 1px solid var(--border);
+    transition: all var(--transition);
+  }
+  .tag.highlight {
+    background: var(--accent-subtle);
+    color: var(--accent2);
+    border-color: var(--accent);
+  }
+
+  /* PROJECTS */
+  .projects-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+    transition: all var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-subtle), transparent 60%);
+    opacity: 0;
+    transition: opacity var(--transition);
+    pointer-events: none;
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 48px var(--accent-glow);
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-card.featured {
+    grid-template-columns: 1fr;
+    background: var(--surface2);
+    border-color: var(--border2);
+  }
+  .project-card.featured .project-body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .project-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    margin-bottom: 0.75rem;
+    display: inline-block;
+  }
+  .badge-featured { background: var(--accent-subtle); color: var(--accent2); border: 1px solid var(--accent); }
+  .badge-tool { background: rgba(74,222,154,0.1); color: var(--green); border: 1px solid rgba(74,222,154,0.3); }
+  .badge-wip { background: rgba(245,200,66,0.1); color: var(--amber); border: 1px solid rgba(245,200,66,0.3); }
+  .badge-archived { background: var(--bg3); color: var(--text3); border: 1px solid var(--border); }
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .project-desc {
+    color: var(--text2);
+    font-size: 0.92rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .project-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+  .project-link {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text3);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    transition: all var(--transition);
+    white-space: nowrap;
+  }
+  .project-link:hover {
+    color: var(--accent2);
+    border-color: var(--accent);
+    background: var(--accent-subtle);
+  }
+  .highlight-block {
+    background: var(--bg3);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    color: var(--text2);
+  }
+  .highlight-block strong { color: var(--accent2); font-weight: 500; }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .contact-text .big-line {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin-bottom: 1.25rem;
+  }
+  .contact-text .big-line .hollow {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--text3);
+  }
+  .contact-text p { color: var(--text2); font-weight: 300; margin-bottom: 1.5rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text2);
+    transition: all var(--transition);
+    font-size: 0.9rem;
+  }
+  .contact-link:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    background: var(--accent-subtle);
+    transform: translateX(4px);
+  }
+  .contact-link-icon {
+    width: 36px; height: 36px;
+    background: var(--bg3);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: background var(--transition);
+  }
+  .contact-link:hover .contact-link-icon { background: var(--accent-subtle); }
+  .contact-link-info { flex: 1; }
+  .contact-link-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .contact-link-value { font-size: 0.88rem; color: var(--text); }
+  .contact-arrow { color: var(--text3); font-size: 0.9rem; transition: transform var(--transition); }
+  .contact-link:hover .contact-arrow { transform: translateX(3px); color: var(--accent2); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .footer-text {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text3);
+  }
+  .footer-text span { color: var(--accent2); }
+
+  /* CURSOR DOT */
+  .cursor {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s, opacity 0.15s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 32px; height: 32px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.12s cubic-bezier(0.25,0.46,0.45,0.94), width 0.2s, height 0.2s, opacity 0.2s;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 4px var(--green); }
+    50% { box-shadow: 0 0 12px var(--green); }
+  }
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+  .reveal.hidden { opacity: 0; transform: translateY(24px); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* DIVIDER */
+  .section-divider {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    section { padding: 3.5rem 1.5rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-card.featured .project-body { grid-template-columns: 1fr; }
+    .project-links { flex-direction: row; align-items: flex-start; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
 </head>
-<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text font-sans transition-colors duration-300">
+<body>
 
-  <!-- Header -->
-  <header class="bg-light-primary dark:bg-dark-primary text-white py-6 shadow-lg sticky top-0 z-40">
-    <div class="container mx-auto px-6 flex justify-between items-center">
-      <h1 class="text-2xl font-extrabold">Sydrenz Anthony Cao</h1>
-      <nav class="hidden md:flex space-x-4 md:space-x-6">
-        <a href="#about" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">About</a>
-        <a href="#skills" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">Skills</a>
-        <a href="#projects" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">Projects</a>
-        <a href="#contact" class="text-white hover:text-blue-200 dark:hover:text-dark-accent font-medium transition-colors">Contact</a>
-      </nav>
-    </div>
-  </header>
+<div class="glow-orb"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- Theme Toggle Button -->
-  <div class="fixed top-5 right-4 z-50">
-    <button id="theme-toggle" class="p-2 rounded-full bg-light-card dark:bg-dark-card shadow-md hover:scale-110 transition-transform">
-      <svg id="theme-toggle-dark-icon" class="hidden h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-      </svg>
-      <svg id="theme-toggle-light-icon" class="hidden h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-      </svg>
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://loldope19.github.io/assets/images/profile.jpg" alt="Syd" class="nav-avatar">
+    SYD<span class="dot">.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="toggle-pill" id="darkPill">🌙</span>
+      <span class="toggle-pill" id="lightPill">☀️</span>
     </button>
   </div>
+</nav>
 
-
-  <!-- Main Content Wrapper -->
-  <main class="container mx-auto px-6 py-12">
-    <!-- This new div wraps all the sections and sets a max-width -->
-    <div class="max-w-6xl mx-auto">
-
-      <!-- About Section -->
-      <section id="about" class="mb-16 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-6 border-b-2 border-light-accent dark:border-dark-accent pb-2">About Me</h2>
-        <div class="flex flex-col md:flex-row items-center gap-8">
-          <div class="flex-shrink-0">
-            <img class="h-40 w-40 rounded-full object-cover shadow-lg" src="assets/images/profile.jpg" alt="A photo of Sydrenz Cao">
-          </div>
-          <p class="text-lg leading-relaxed">
-            Hello! I'm Sydrenz Cao, Syd for short, an aspiring game developer passionate about storytelling,
-            tactical RPGs, and interactive experiences. I specialize in C++ and Unity development,
-            with experience designing turn-based combat systems, character stat balancing, and narrative-driven gameplay.
-          </p>
-        </div>
-      </section>
-
-      <!-- Skills & Toolkit Section -->
-      <section id="skills" class="mb-16 scroll-mt-24">
-          <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-6 border-b-2 border-light-accent dark:border-dark-accent pb-2">Skills & Toolkit</h2>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <!-- Languages -->
-              <div>
-                  <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-3">Languages</h3>
-                  <ul class="space-y-2">
-                      <li>C++</li>
-                      <li>C#</li>
-                      <li>HLSL</li>
-                  </ul>
-              </div>
-              <!-- Engines & Libraries -->
-              <div>
-                  <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-3">Engines & Libraries</h3>
-                  <ul class="space-y-2">
-                      <li>Unity</li>
-                      <li>Unreal Engine</li>
-                      <li>Godot</li>
-                      <li>DirectX 11</li>
-                      <li>SFML</li>
-                  </ul>
-              </div>
-              <!-- Tools & Platforms -->
-              <div>
-                  <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-3">Tools & Platforms</h3>
-                  <ul class="space-y-2">
-                      <li>Git & GitHub</li>
-                      <li>Visual Studio</li>
-                  </ul>
-              </div>
-              <!-- Design & Writing -->
-              <div>
-                  <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-3">Design & Writing</h3>
-                  <ul class="space-y-2">
-                      <li>Systems Design</li>
-                      <li>Narrative Design</li>
-                      <li>UX Design</li>
-                      <li>ChoiceScript</li>
-                  </ul>
-              </div>
-          </div>
-      </section>
-
-      <!-- Projects Section -->
-      <section id="projects" class="scroll-mt-24">
-        <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-4 border-b-2 border-light-accent dark:border-dark-accent pb-2">Game Projects</h2>
-
-        <!-- Filter Buttons -->
-        <div id="filter-container" class="flex flex-wrap gap-2 mb-8">
-          <button data-filter="all" class="filter-btn active px-4 py-2 text-sm font-medium rounded-full bg-light-primary text-white dark:bg-dark-primary dark:text-white shadow-sm">All</button>
-          <button data-filter="unity" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">Unity</button>
-          <button data-filter="choicescript" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">ChoiceScript</button>
-          <button data-filter="cpp" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">C++/SFML</button>
-          <button data-filter="in-progress" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">In Progress</button>
-          <button data-filter="archived" class="filter-btn px-4 py-2 text-sm font-medium rounded-full bg-light-card dark:bg-dark-card hover:bg-light-primary/20 dark:hover:bg-dark-primary/50 transition-colors">Archived</button>
-        </div>
-
-        <!-- Project Grid -->
-        <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          <!-- PROJECT: Beyond the Thicket -->
-          <div 
-            class="project-card project-modal-trigger cursor-pointer bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" 
-            data-tags="unity archived"
-            data-title="🌿 Beyond the Thicket"
-            data-overview="On this collaborative tactical RPG, I was the core programmer responsible for the entire turn-based combat system. My role was to take the system from an initial concept to a fully-featured combat loop. This included everything from party controls and enemy AI to the unique 'Action Pass' initiative system."
-            data-responsibilities="<li><strong>Scene & State Management:</strong> Architected the dynamic combat scene and managed game state persistence between the overworld and combat encounters.</li>
-            <li><strong>Core Player Systems:</strong> Implemented the full player experience, including the party system, stat persistence, and the complete victory/defeat loop.</li>
-            <li><strong>UI & Input:</strong> Revamped the combat UI and input logic from a designer's wireframe to create a more intuitive and responsive interface.</li>
-            <li><strong>Gameplay Mechanics:</strong> Designed and scripted key mechanics like the 'Action Pass' turn order, a versatile status effect system, and controllable companions.</li>
-            <li><strong>Quality-of-Life Features:</strong> Added a pre-attack damage preview, combat speed toggle, and a context-sensitive UI to clearly display player controls.</li>
-            "
-            data-learnings="
-            <p>A key challenge arose late in development: a proposal to overhaul the input system for full mouse control. My investigation revealed this would require a total rewrite of the core 875-line combat manager, posing a major risk to the project's timeline.</p>
-            <p>This became a crucial lesson in <strong>technical scoping and risk assessment</strong>. Instead of a high-risk rewrite, I made the pragmatic decision to refine the existing keyboard-centric system.</p><p>As a solution, I developed a context-aware UI that guides the player with the correct controls for each phase of combat. This ensured an accessible experience while keeping the project on track and demonstrated the importance of adapting design to technical constraints.</p>"
-            data-gallery='["assets/images/beyond-the-thicket.png", "assets/images/beyond-the-thicket2.png", "assets/images/beyond-the-thicket3.png"]'>
-            
-            <img src="assets/images/beyond-the-thicket.png" alt="Gameplay screenshot of Beyond the Thicket" class="w-full h-48 object-cover pointer-events-none">
-            <div class="p-6 pointer-events-none">
-              <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🌿 Beyond the Thicket</h3>
-              <p class="mb-4">A 4-month collaborative game project. My role was to design and implement the core combat system.</p>
-              <div class="flex items-center justify-between">
-                <a href="https://thicket-studios.itch.io/through-the-thicket" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline pointer-events-auto">View on Itch.io &rarr;</a>
-                <div class="flex gap-2">
-                  <span class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">Unity</span>
-                  <span class="text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-2 py-1 rounded-full">Archived</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- PROJECT: Project-Experipets -->
-          <div 
-            class="project-card project-modal-trigger cursor-pointer bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" 
-            data-tags="unity archived"
-            data-title="🐾 Project-Experipets"
-            data-overview="Experipets is a virtual pet management game where the player cares for a creature through a retro-style desktop OS interface. As one of two programmers on a five-person student team, my primary role was to build the game's foundational systems. I developed the core player-facing mechanics, including the inventory, shop, and the advanced drag-and-drop interactions for pet care."
-            data-responsibilities="
-            <li><strong>Shop & Inventory Systems:</strong> Architected and programmed the game's economy loop from the ground up, including the barebones shop and the corresponding player inventory system.</li>
-            <li><strong>Core Interaction Mechanics:</strong> Developed the primary pet care gameplay, implementing a complex drag-and-drop system for feeding and cleaning items. I also scripted unique mechanics for various toys, such as the click-to-throw ball.</li>
-            <li><strong>Narrative Integration:</strong> Integrated the dialogue and task systems into the main game loop, ensuring that story progression was correctly tied to the completion of major tasks.</li>
-            <li><strong>Critical Bug Fixes:</strong> Handled key debugging tasks, including resolving a critical bug that prevented player data from resetting correctly after a 'Game Over' state, ensuring a stable player experience.</li>
-            "
-            data-learnings="
-            <p>This project was a significant exercise in building multiple interconnected gameplay systems. A major challenge was ensuring the discrete systems I built, such as the shop, inventory, and stat managers, all communicated effectively to create a seamless player experience, especially after a major UI and level revamp mid-development.</p>
-            <p>Working as one of two programmers taught me the importance of clear communication and task delegation. For instance, after building the initial inventory, the task and day systems were handled by my partner, allowing us to develop in parallel.</p>
-            <p>Finally, I learned the importance of robust player data management. Debugging the 'Game Over' bug that failed to reset progress gave me a much deeper appreciation for building resilient save and state-management logic from the outset.</p>"
-            data-gallery='["assets/images/experipets.png", "assets/images/experipets2.png", "assets/images/experipets3.png"]'>
-            
-            <img src="assets/images/experipets.png" alt="Gameplay screenshot of Project-Experipets" class="w-full h-48 object-cover pointer-events-none">
-            <div class="p-6 pointer-events-none">
-              <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🐾 Project-Experipets</h3>
-              <p class="mb-4">A monster-taming game currently in development, built with Unity.</p>
-              <div class="flex items-center justify-between">
-              <a href="https://github.com/loldope19/Project-Experipets" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline pointer-events-auto">View on GitHub &rarr;</a>
-              <div class="flex gap-2">
-                <span class="text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full">Unity</span>
-                <span class="text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-2 py-1 rounded-full">Archived</span>
-              </div>
-              </div>
-            </div>
-            </div>
-          
-          <!-- PROJECT: ¡Madre Mía! -->
-          <div 
-            class="project-card project-modal-trigger cursor-pointer bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" 
-            data-tags="choicescript in-progress"
-            data-title="🧠 ¡Madre Mía!"
-            data-overview="Created in about a week for a university course, Madre Mía is a humorous, historical-fiction game built in ChoiceScript. The game is a short, interactive prototype where you play as the long-suffering butler to the theatrical Pedro Paterno in late 19th-century Madrid. Your goal is to prevent his grand ambitions from collapsing into complete disgrace during a high-society ball."
-            data-responsibilities="
-              <li><strong>Programming (ChoiceScript):</strong> Rapidly prototyped the entire interactive experience, scripting the branching logic and state management. I implemented a stat-based choice system with over 15 variables to track player skills, story flags, and character relationships.</li>
-              <li><strong>Narrative Design & Writing:</strong> As a newfound hobby for this project, I wrote a comedic script designed to reintroduce historical figures in a fresh, relatable way. The narrative focuses on player choice, humor, and crisis management.</li>
-            "
-            data-learnings="
-              <p>This project was my answer to the question: How can I use my programming talent to make history engaging? It was a personal exploration into the intersection of coding and storytelling, inspired by José Rizal's own use of novels to influence public thought.</p><p>The goal wasn't to create a rigid history lesson, but to capture the spirit of an era through humor and player agency. It was a fantastic lesson in rapid prototyping, demonstrating how a choice-based narrative can bring historical themes to life in a way that is interactive and fun, rather than just informational.</p>
-
-              <p>Frankly, this is the fastest that I have ever written a game, and will probably be the fastest for a long time unless I spontaneously decide to join a Game Jam.</p>
-            "
-            data-gallery='["assets/images/madre-mia.png", "assets/images/madre-mia2.png", "assets/images/madre-mia3.png"]'>
-            
-            <img src="assets/images/madre-mia.png" alt="Screenshot of ¡Madre Mía!" class="w-full h-48 object-cover pointer-events-none">
-            <div class="p-6 pointer-events-none">
-              <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🧠 ¡Madre Mía!</h3>
-              <p class="mb-4">A comedic historical CYOA game about Pedro Paterno's absurd antics, told through the eyes of his Spanish butler.</p>
-              <div class="flex items-center justify-between">
-              <a href="https://cogdemos.ink/play/loldope19/madre-mia/mygame" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline pointer-events-auto">View on CogDemos &rarr;</a>
-              <div class="flex gap-2">
-                <span class="text-xs font-semibold bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-2 py-1 rounded-full">ChoiceScript</span>
-                <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-2 py-1 rounded-full">In Progress</span>
-              </div>
-              </div>
-            </div>
-            </div>
-
-          <!-- PROJECT: Donkey Kong Knockoff -->
-            <div 
-            class="project-card project-modal-trigger cursor-pointer bg-light-card dark:bg-dark-card rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden" 
-            data-tags="cpp archived"
-            data-title="🐵 SFML Kong"
-            data-overview="SFML Kong is a 2D arcade platformer developed for a university course. As one of two programmers on the team, my primary responsibility was building the core engine architecture from scratch in C++. I implemented the entire game state machine, the custom physics and collision systems, the UI, and the audio management."
-            data-responsibilities="
-              <li><strong>Engine & State Management:</strong> Architected the game's foundational structure in C++, implementing and managing all game states including the <strong>Main Menu</strong>, <strong>Game Scene</strong>, <strong>Pause Screen</strong>, and <strong>Results Screen</strong>.</li>
-              <li><strong>Custom C++ Physics:</strong> Wrote the 2D platforming physics from the ground up, programming the complete <strong>map collision system</strong> and the initial, complex logic for <strong>player-ladder interactions</strong>.</li>
-              <li><strong>Gameplay Systems & UI:</strong> Programmed key systems like the singleton-based <strong>ScoreManager</strong> and implemented the UI for all game scenes.</li>
-              <li><strong>Audio Implementation:</strong> Handled the audio integration, implementing the <strong>background music</strong> and performing a complete <strong>revamp of the SFX Manager</strong>.</li>
-            "
-            data-learnings="
-              <p>This project was a crucial, hands-on lesson in C++ game architecture. The most significant challenge was building a 2D platforming controller from scratch; systematically building the collision system from basic map interactions to complex ladder physics was an immense practical lesson in the nuances of low-level game programming.</p>
-              
-              <p>The project also highlighted the importance of proper environment setup. An early effort involved configuring the SFML environment and standardizing the screen size to create a stable foundation for feature development. As a collaborative project, it was also valuable experience in a team-based Git workflow, frequently merging feature branches to integrate my work on the core engine with my partner's work on gameplay elements.</p>
-            "
-            data-gallery='["assets/images/sfml-kong.png", "assets/images/sfml-kong2.png"]'>
-            
-            <img src="assets/images/sfml-kong2.png" alt="Gameplay screenshot of SFML Kong" class="w-full h-48 object-cover pointer-events-none">
-            <div class="p-6 pointer-events-none">
-              <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">🐵 SFML Kong</h3>
-              <p class="mb-4">A Donkey Kong-inspired platformer made with C++ and SFML for a university course. A fun, albeit buggy, learning experience!</p>
-              <div class="flex items-center justify-between">
-              <a href="https://github.com/shrimp-n00dle/gdadprg_mco" target="_blank" class="font-medium text-light-accent dark:text-dark-accent hover:underline pointer-events-auto">View on GitHub &rarr;</a>
-              <div class="flex gap-2">
-                <span class="text-xs font-semibold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-2 py-1 rounded-full">C++/SFML</span>
-                <span class="text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-2 py-1 rounded-full">Archived</span>
-              </div>
-              </div>
-            </div>
-            </div>
-
-        </div>
-      </section>
-
-      <!-- Engine & Tech Demos Section -->
-      <section id="tech-demos" class="mt-16 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-6 border-b-2 border-light-accent dark:border-dark-accent pb-2">Engine & Tech Demos</h2>
-        <div class="space-y-4">
-          <!-- DirectX Engine 1 -->
-          <div class="bg-light-card dark:bg-dark-card p-4 rounded-lg shadow-md flex items-center gap-4">
-            <div class="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-light-primary/10 dark:bg-dark-primary/20 text-light-primary dark:text-dark-accent font-bold text-xl">DX</div>
-            <div class="flex-grow">
-              <h3 class="font-bold text-light-heading dark:text-dark-heading">DirectX 11 Engine from Scratch</h3>
-              <p class="text-sm">My personal implementation for the GDENG03 course, focusing on core rendering pipelines.</p>
-            </div>
-            <a href="https://github.com/loldope19/GDENG03_DirectX3D_Triangle" target="_blank" class="flex-shrink-0 font-medium text-light-accent dark:text-dark-accent hover:underline">View Repo &rarr;</a>
-          </div>
-          <!-- DirectX Engine 2 -->
-          <div class="bg-light-card dark:bg-dark-card p-4 rounded-lg shadow-md flex items-center gap-4">
-            <div class="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-md bg-light-primary/10 dark:bg-dark-primary/20 text-light-primary dark:text-dark-accent font-bold text-xl">DX</div>
-             <div class="flex-grow">
-              <h3 class="font-bold text-light-heading dark:text-dark-heading">Collaborative DirectX 11 Engine</h3>
-              <p class="text-sm">A group project for GDENG03. I contributed the fog and shader systems.</p>
-            </div>
-            <a href="https://github.com/FurehXD/GDENG03-Engine" target="_blank" class="flex-shrink-0 font-medium text-light-accent dark:text-dark-accent hover:underline">View Repo &rarr;</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Resume Section -->
-      <section id="resume" class="mt-16 scroll mt-24">
-        <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-4 border-b-2 border-light-accent dark:border-dark-accent pb-2">My Résumé</h2>
-        <div class="text-center bg-light-card dark:bg-dark-card p-8 rounded-lg">
-          <div class="relative w-full h-[80vh] mt-6">
-            <embed src="assets/Sydrenz_Cao_CV.pdf" type="application/pdf" class="w-full h-full rounded-md shadow-md" />
-          </div>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section id="contact" class="mt-16 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-4 border-b-2 border-light-accent dark:border-dark-accent pb-2">Get In Touch</h2>
-        <div class="text-center bg-light-card dark:bg-dark-card p-8 rounded-lg">
-          <p class="text-lg mb-4">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
-          <a href="mailto:sydrenzcao09@gmail.com" class="inline-block bg-light-primary dark:bg-dark-primary text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity">
-            Say Hello
-          </a>
-          <div class="mt-6 flex justify-center space-x-6">
-            <a href="https://github.com/loldope19" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">GitHub</a>
-            <a href="https://www.linkedin.com/in/sydrenz-anthony-cao-989707372" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">LinkedIn</a>
-            <a href="https://loldope19.itch.io" target="_blank" class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors">itch.io</a>
-          </div>
-        </div>
-      </section>
+<main>
+  <div class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">game systems &amp; tools programmer</p>
+      <h1 class="hero-name">
+        Sydrenz<br>
+        <span class="line2">Anthony</span><br>
+        <span class="accent-word">Cao</span>
+      </h1>
+      <p class="hero-tagline">
+        I build the <strong>infrastructure that lets games ship</strong> — editor tooling, gameplay systems, and the pipelines designers actually want to use.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">↓ see the work</a>
+        <a href="/cdn-cgi/l/email-protection#bbc8c2dfc9ded5c1d8dad48b82fbdcd6dad2d795d8d4d6" class="btn btn-ghost">get in touch</a>
+      </div>
+      <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        <span class="scroll-label">scroll</span>
+      </div>
     </div>
-  </main>
-
-  <div id="project-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
-    <div id="modal-content" class="modal-content bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto transform">
-      <div class="p-8 relative">
-        <button id="modal-close-btn" class="absolute top-4 right-4 text-light-text dark:text-dark-text hover:opacity-75 transition-opacity z-10">
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        <h2 id="modal-title" class="text-3xl font-bold text-light-heading dark:text-dark-heading mb-4">
-          </h2>
-
-        <hr class="border-light-accent dark:border-dark-accent mb-6">
-
-        <div id="modal-gallery-container" class="relative w-full mb-8">
-          <div class="overflow-hidden rounded-lg shadow-md">
-            <div id="modal-gallery-track" class="carousel-track flex">
-              </div>
-          </div>
-          <button id="carousel-btn-prev" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 transition-opacity disabled:opacity-0 disabled:cursor-not-allowed">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-          </button>
-          <button id="carousel-btn-next" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full hover:bg-opacity-60 transition-opacity disabled:opacity-0 disabled:cursor-not-allowed">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-          </button>
-        </div>
-
-        <div class="space-y-6 text-lg leading-relaxed">
-          <div>
-            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">Project Overview</h3>
-            <p id="modal-overview"></p>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">My Role & Responsibilities</h3>
-            <ul id="modal-responsibilities" class="space-y-4 list-disc list-inside"></ul>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-light-primary dark:text-dark-accent mb-2">Challenges & Learnings</h3>
-            <div id="modal-learnings" class="space-y-4"></div>
-          </div>
-        </div>
+    <div class="hero-photo-wrap">
+      <img
+        src="https://loldope19.github.io/assets/images/profile.jpg"
+        alt="Sydrenz Cao"
+        class="hero-photo"
+      >
+      <div class="hero-photo-tag">
+        <div class="tag-label">based in</div>
+        <div class="tag-value">Manila → Sunderland ✦</div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-light-bg dark:bg-dark-bg border-t border-gray-200 dark:border-gray-700 mt-16">
-    <div class="container mx-auto px-6 py-6 text-center text-gray-500 dark:text-gray-400">
-      <p>&copy; 2025 Sydrenz Cao. Built with HTML, Tailwind CSS, and a little bit of JavaScript.</p>
+  <hr class="section-divider">
+
+  <section id="about">
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">about</h2>
+      <div class="section-line"></div>
     </div>
-  </footer>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Final-year <strong>Game Development student at De La Salle University Laguna</strong>, specialising in the systems and tooling layer that sits between the engine and the designer.</p>
+        <p>My focus is on <strong>Unity editor tooling, gameplay systems architecture, and runtime performance</strong> for mobile platforms. I care about the kind of work that makes other people's jobs easier — a level editor that a designer can pick up without a tutorial, an asset pipeline that loads what it needs and nothing more.</p>
+        <p>Currently finishing a vertical slice with a custom Unity level editor, Addressables integration, and a codebase structured with Assembly Definitions. Looking for a <strong>junior tools/systems role in the UK</strong> after gaining local industry experience.</p>
+      </div>
+      <div class="about-sidebar reveal">
+        <div class="stat-card">
+          <div class="label">status</div>
+          <div class="value"><span class="status-dot"></span>Final year</div>
+          <div class="sub">DLSU Laguna — graduating mid-2026</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">specialisation</div>
+          <div class="value">Tools & Systems</div>
+          <div class="sub">Unity · C# · Mobile-first</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">target market</div>
+          <div class="value">UK · Mobile</div>
+          <div class="sub">Open to relocation · Skilled Worker visa</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">education</div>
+          <div class="value">BS Interactive Entertainment - Major in Game Development</div>
+          <div class="sub">De La Salle University</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // --- THEME TOGGLE SCRIPT ---
-      const themeToggleBtn = document.getElementById('theme-toggle');
-      const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-      const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+  <hr class="section-divider">
 
-      if (localStorage.getItem('color-theme') === 'dark' || 
-         (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-        themeToggleLightIcon.classList.remove('hidden');
-      } else {
-        document.documentElement.classList.remove('dark');
-        themeToggleDarkIcon.classList.remove('hidden');
-      }
+  <section id="skills">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">core</div>
+        <div class="skill-tags">
+          <span class="tag highlight">C#</span>
+          <span class="tag highlight">Unity</span>
+          <span class="tag highlight">Editor Scripting</span>
+          <span class="tag">C++</span>
+          <span class="tag">HLSL</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">unity systems</div>
+        <div class="skill-tags">
+          <span class="tag highlight">Addressables</span>
+          <span class="tag highlight">Assembly Definitions</span>
+          <span class="tag highlight">ScriptableObjects</span>
+          <span class="tag">Object Pooling</span>
+          <span class="tag">EditorWindow</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">mobile & platforms</div>
+        <div class="skill-tags">
+          <span class="tag highlight">Mobile-first</span>
+          <span class="tag">Android</span>
+          <span class="tag">iOS</span>
+          <span class="tag">WebGL</span>
+          <span class="tag">Free-to-play</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">tools & pipeline</div>
+        <div class="skill-tags">
+          <span class="tag highlight">Git & GitHub</span>
+          <span class="tag">Visual Studio</span>
+          <span class="tag">DirectX 11</span>
+          <span class="tag">SFML</span>
+          <span class="tag">Godot</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      themeToggleBtn.addEventListener('click', () => {
-        themeToggleDarkIcon.classList.toggle('hidden');
-        themeToggleLightIcon.classList.toggle('hidden');
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
-      });
+  <hr class="section-divider">
 
-      // --- PROJECT FILTERING SCRIPT ---
-      const filterContainer = document.getElementById('filter-container');
-      const projectCards = document.querySelectorAll('.project-card');
+  <section id="projects">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-list">
 
-      filterContainer.addEventListener('click', (e) => {
-        const target = e.target;
-        if (target.tagName === 'BUTTON' && !target.classList.contains('active')) {
-          const filter = target.dataset.filter;
+      <!-- FEATURED: Curation Curiosity -->
+      <div class="project-card featured reveal">
+        <div>
+          <span class="project-badge badge-featured">featured — vertical slice</span>
+        </div>
+        <div class="project-body">
+          <div>
+            <h3 class="project-title">Curation Curiosity</h3>
+            <p class="project-desc">A 3D educational puzzle game where players restore animal totems by identifying biological traits. Built for mobile with touchscreen-first interaction — swipe to rotate, tap to select, drag to answer.</p>
+            <div class="project-tech">
+              <span class="tag highlight">Unity</span>
+              <span class="tag highlight">C#</span>
+              <span class="tag highlight">Addressables</span>
+              <span class="tag highlight">Custom Level Editor</span>
+              <span class="tag">Assembly Definitions</span>
+              <span class="tag">Mobile</span>
+              <span class="tag">WebGL</span>
+            </div>
+            <div class="highlight-block">
+              <strong>Tools work:</strong> Built a custom Unity EditorWindow level editor — the design lead made levels without touching a line of code. Addressables pipeline groups level assets and 3D models separately, loading only what's needed per scene.
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://loldope19.itch.io/curation-curiosity-v041" target="_blank" class="project-link">↗ play on itch.io</a>
+          </div>
+        </div>
+      </div>
 
-          // Update active state on buttons
-          filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.remove('active', 'bg-light-primary', 'dark:bg-dark-primary', 'text-white');
-            btn.classList.add('bg-light-card', 'dark:bg-dark-card');
-          });
-          target.classList.add('active', 'bg-light-primary', 'dark:bg-dark-primary', 'text-white');
-          target.classList.remove('bg-light-card', 'dark:bg-dark-card');
+      <!-- Beyond the Thicket -->
+      <div class="project-card reveal">
+        <div>
+          <span class="project-badge badge-archived">archived</span>
+          <h3 class="project-title">Beyond the Thicket</h3>
+          <p class="project-desc">4-month collaborative project. Designed and implemented the core turn-based combat system — stat architecture, action resolution, and encounter flow.</p>
+          <div class="project-tech">
+            <span class="tag highlight">Unity</span>
+            <span class="tag highlight">C#</span>
+            <span class="tag">Combat Systems</span>
+            <span class="tag">Collaborative</span>
+          </div>
+        </div>
+        <div class="project-links">
+          <a href="https://thicket-studios.itch.io/through-the-thicket" target="_blank" class="project-link">↗ itch.io</a>
+        </div>
+      </div>
 
-          // Filter the project cards
-          projectCards.forEach(card => {
-            const tags = card.dataset.tags;
-            const shouldShow = (filter === 'all' || (tags && tags.includes(filter)));
-            
-            if (shouldShow) {
-              card.classList.remove('hidden-project');
-            } else {
-              card.classList.add('hidden-project');
-            }
-          });
+      <!-- DirectX Engine -->
+      <div class="project-card reveal">
+        <div>
+          <span class="project-badge badge-archived">archived — coursework</span>
+          <h3 class="project-title">DirectX 11 Rendering Engine</h3>
+          <p class="project-desc">Personal implementation of a rendering pipeline from scratch for GDENG03. Core pipeline, fog system, and shader architecture. Group variant includes collaborative contributions.</p>
+          <div class="project-tech">
+            <span class="tag highlight">C++</span>
+            <span class="tag highlight">DirectX 11</span>
+            <span class="tag">HLSL</span>
+            <span class="tag">Rendering</span>
+          </div>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/loldope19/GDENG03_DirectX3D_Triangle" target="_blank" class="project-link">↗ GitHub</a>
+        </div>
+      </div>
+
+      <!-- SFML Kong -->
+      <div class="project-card reveal">
+        <div>
+          <span class="project-badge badge-archived">archived — coursework</span>
+          <h3 class="project-title">SFML Kong</h3>
+          <p class="project-desc">Donkey Kong-inspired platformer in C++ and SFML. Buggy, but deliberately retained as a record of early-stage learning — the progression to Assembly-Definition-structured codebases is the point.</p>
+          <div class="project-tech">
+            <span class="tag">C++</span>
+            <span class="tag">SFML</span>
+            <span class="tag">Collaborative</span>
+          </div>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/shrimp-n00dle/gdadprg_mco" target="_blank" class="project-link">↗ GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section id="contact">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">contact</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-text reveal">
+        <div class="big-line">
+          Let's build<br>
+          <span class="hollow">something</span><br>
+          worth shipping.
+        </div>
+        <p>Open to junior systems and tools roles, internships, and project collaborations. Especially interested in mobile-first studios in the UK.</p>
+        <a href="/cdn-cgi/l/email-protection#90e3e9f4e2f5feeaf3f1ffa0a9d0f7fdf1f9fcbef3fffd" class="btn btn-primary">say hello →</a>
+      </div>
+      <div class="contact-links reveal">
+        <a href="/cdn-cgi/l/email-protection#d2a1abb6a0b7bca8b1b3bde2eb92b5bfb3bbbefcb1bdbf" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          <div class="contact-link-info">
+            <div class="contact-link-label">email</div>
+            <div class="contact-link-value"><span class="__cf_email__" data-cfemail="e4979d8096818a9e87858bd4dda48389858d88ca878b89">[email&#160;protected]</span></div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a href="https://github.com/loldope19" target="_blank" class="contact-link">
+          <div class="contact-link-icon">⌥</div>
+          <div class="contact-link-info">
+            <div class="contact-link-label">github</div>
+            <div class="contact-link-value">loldope19</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/sydrenz-anthony-cao-989707372" target="_blank" class="contact-link">
+          <div class="contact-link-icon">in</div>
+          <div class="contact-link-info">
+            <div class="contact-link-label">linkedin</div>
+            <div class="contact-link-value">sydrenz-anthony-cao</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a href="https://loldope19.itch.io" target="_blank" class="contact-link">
+          <div class="contact-link-icon">▶</div>
+          <div class="contact-link-info">
+            <div class="contact-link-label">itch.io</div>
+            <div class="contact-link-value">loldope19</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="footer-text">© 2025 <span>Sydrenz Cao</span> — built with intention, not a template.</span>
+  <span class="footer-text">Manila, PH → <span>Sunderland, UK</span> (soon™)</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Theme toggle
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const darkPill = document.getElementById('darkPill');
+  const lightPill = document.getElementById('lightPill');
+
+  function setTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    darkPill.classList.toggle('active', theme === 'dark');
+    lightPill.classList.toggle('active', theme === 'light');
+    localStorage.setItem('theme', theme);
+  }
+
+  const saved = localStorage.getItem('theme') ||
+    (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  setTheme(saved);
+
+  toggle.addEventListener('click', () => {
+    setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  // Scroll reveal — with iframe/sandbox fallback
+  const reveals = document.querySelectorAll('.reveal');
+  function revealAll() { reveals.forEach(el => el.classList.add('visible')); }
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
         }
       });
+    }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
+    reveals.forEach(el => observer.observe(el));
+    // Fallback: if nothing has revealed after 1.5s, just show everything
+    setTimeout(() => {
+      const hidden = document.querySelectorAll('.reveal:not(.visible)');
+      if (hidden.length > 0) revealAll();
+    }, 1500);
+  } else {
+    revealAll();
+  }
 
-      // --- MODAL SCRIPT (with Carousel Logic) ---
-      const modal = document.getElementById('project-modal');
-      const modalCloseBtn = document.getElementById('modal-close-btn');
-      const projectGrid = document.getElementById('project-grid');
+  // Custom cursor (desktop only)
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
 
-      // Get references to the modal's content elements
-      const modalTitle = document.getElementById('modal-title');
-      const modalOverview = document.getElementById('modal-overview');
-      const modalResponsibilities = document.getElementById('modal-responsibilities');
-      const modalLearnings = document.getElementById('modal-learnings');
-
-      // Carousel specific elements
-      const galleryTrack = document.getElementById('modal-gallery-track');
-      const prevButton = document.getElementById('carousel-btn-prev');
-      const nextButton = document.getElementById('carousel-btn-next');
-      let currentIndex = 0;
-      let totalImages = 0;
-
-      // Function to show a specific image in the carousel
-      const showImage = (index) => {
-        const offset = -index * 100;
-        galleryTrack.style.transform = `translateX(${offset}%)`;
-
-        // Update button states
-        prevButton.disabled = index === 0;
-        nextButton.disabled = index === totalImages - 1;
-      };
-
-      // Function to open and populate the modal
-      const openModal = (card) => {
-        // Reset carousel state
-        currentIndex = 0;
-        
-        // Populate text content
-        modalTitle.textContent = card.dataset.title;
-        modalOverview.textContent = card.dataset.overview;
-        modalResponsibilities.innerHTML = card.dataset.responsibilities;
-        modalLearnings.innerHTML = card.dataset.learnings;
-        
-        // Populate the gallery track
-        galleryTrack.innerHTML = ''; // Clear previous images
-        try {
-          const images = JSON.parse(card.dataset.gallery);
-          totalImages = images.length;
-
-          images.forEach(src => {
-            // Create a container for each image to control sizing
-            const imageContainer = document.createElement('div');
-            imageContainer.className = 'flex-shrink-0 w-full aspect-video'; // aspect-video gives a 16:9 ratio
-
-            const img = document.createElement('img');
-            img.src = src;
-            img.alt = `${card.dataset.title} screenshot`;
-            img.className = 'w-full h-full object-cover'; // object-cover prevents distortion
-            
-            imageContainer.appendChild(img);
-            galleryTrack.appendChild(imageContainer);
-          });
-        } catch (e) {
-          console.error("Could not parse gallery data:", e);
-          totalImages = 0;
-        }
-        
-        // Hide buttons if there's only one image or no images
-        if (totalImages <= 1) {
-          prevButton.style.display = 'none';
-          nextButton.style.display = 'none';
-        } else {
-          prevButton.style.display = 'block';
-          nextButton.style.display = 'block';
-        }
-
-        // Set the initial state of the carousel
-        showImage(currentIndex);
-
-        // Show the modal
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-      };
-
-      // Function to close the modal
-      const closeModal = () => {
-        modal.classList.add('hidden');
-        document.body.style.overflow = ''; // Restore background scrolling
-      };
-
-      // --- Event Listeners ---
-
-      // Listener for opening the modal
-      projectGrid.addEventListener('click', (e) => {
-        const card = e.target.closest('.project-modal-trigger');
-        if (card) {
-          openModal(card);
-        }
-      });
-
-      // Listeners for closing the modal
-      modalCloseBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) { // Close if the backdrop is clicked
-          closeModal();
-        }
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-          closeModal();
-        }
-      });
-
-      // Listeners for carousel navigation
-      nextButton.addEventListener('click', () => {
-        if (currentIndex < totalImages - 1) {
-          currentIndex++;
-          showImage(currentIndex);
-        }
-      });
-
-      prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-          currentIndex--;
-          showImage(currentIndex);
-        }
-      });
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
     });
-  </script>
 
-</body>
-</html>
+    function animateRing() {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .project-card, .stat-card, .skill-group').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.width = '48px';
+        ring.style.height = '48px';
+        ring.style.opacity = '0.8';
+        cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width = '32px';
+        ring.style.height = '32px';
+        ring.style.opacity = '0.5';
+        curs
