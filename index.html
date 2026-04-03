@@ -1337,15 +1337,15 @@ const PROJECTS = {
     role: 'Programming Lead / Systems Engineer — responsible for the full technical architecture, all gameplay systems, the level editor, and the asset pipeline. The design lead authored all level content using the tools I built, without touching any code.',
     contributions: [
       { title: 'Assembly Definition Architecture', desc: 'Strict modularisation into isolated Assembly Definitions across the entire codebase. No Update() polling anywhere — all runtime communication is event-driven through C# Actions broadcast from a central GameManager that is fully decoupled from UI assemblies.' },
-      { title: 'Custom Level Editor (CurationLevelEditor)', desc: 'Custom EditorWindow tool that lets a designer create a complete level — hitboxes, particle emitter locations, animal characteristics, trait options — without touching code. Dropping a raw .fbx into the tool and clicking "Convert & Auto-Assign" produces a fully configured level prefab. The design lead produced all playable levels using this tool.' },
+      { title: 'Custom Level Editor (CurationLevelEditor)', desc: 'Custom EditorWindow tool that lets a designer create a complete level — hitboxes, particle emitter locations, animal characteristics, trait options — without touching code. Dropping a raw .fbx into the tool and clicking "Convert & Auto-Assign" produces a fully configured level prefab. The design lead produced most of the playable levels using this tool.' },
       { title: 'Addressables Asset Pipeline', desc: 'Asynchronous loading system grouping level assets and 3D models into separate asset bundles. Only the assets required for the current scene are loaded into RAM — critical for Android hardware constraints.' },
       { title: 'Event-Driven Touch Input', desc: 'Custom touch detection state machine via Unity\'s New Input System that differentiates between a deliberate tap and a drag-to-rotate gesture. Fully event-driven raycasting — no polling loops.' },
       { title: 'Particle Object Pooler (ParticlePoolManager)', desc: 'Native ObjectPool-backed particle manager for all visual effects. Physics colliders for calibration hitboxes also use strict pooling — zero dynamic instantiation during the core gameplay loop, eliminating GC allocation spikes on low-end Android devices.' },
       { title: 'Android Performance & Runtime Systems', desc: '30 FPS lock, screen-sleep prevention, and a centralised AudioManager for BGM and SFX. Dynamic level selection UI generated at runtime from ScriptableObject data — adding a level requires placing a new AnimalData asset in the correct folder, no code changes required.' },
     ],
     links: [
-      { label: '↗ play on itch.io', href: 'https://loldope19.itch.io/curation-curiosity-v041' },
-      { label: '↗ github', href: 'https://github.com/loldope19' },
+      { label: '↗ play on itch.io', href: 'https://loldope19.itch.io/curation-curiosity' },
+      { label: '↗ github', href: 'https://github.com/loldope19/Curation-Curiosity' },
     ]
   },
   'beyond-the-thicket': {
