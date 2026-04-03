@@ -801,7 +801,123 @@
     .project-card.featured .project-body { grid-template-columns: 1fr; }
     .project-links { flex-direction: row; align-items: flex-start; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .modal { padding: 1.5rem; }
   }
+
+  /* MODAL */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 680px;
+    max-height: 82vh;
+    overflow-y: auto;
+    padding: 2rem 2.25rem;
+    position: relative;
+    animation: fadeUp 0.25s ease forwards;
+  }
+  .modal-close {
+    position: absolute;
+    top: 1.25rem; right: 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 100px;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--text2);
+    font-size: 1rem;
+    transition: all var(--transition);
+    flex-shrink: 0;
+  }
+  .modal-close:hover { background: var(--surface2); color: var(--text); border-color: var(--accent); }
+  .modal-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+  .modal-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .modal-section-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .modal p {
+    color: var(--text2);
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+  .modal p:last-child { margin-bottom: 0; }
+  .modal p strong { color: var(--text); font-weight: 500; }
+  .modal-contrib { display: flex; flex-direction: column; gap: 0.75rem; }
+  .modal-contrib-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    transition: border-color var(--transition);
+  }
+  .modal-contrib-item:hover { border-color: var(--accent); }
+  .contrib-title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+  .contrib-desc {
+    font-size: 0.85rem;
+    color: var(--text2);
+    font-weight: 300;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .modal-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .btn-case-study {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent2);
+    background: var(--accent-subtle);
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+  }
+  .btn-case-study:hover { background: var(--accent); color: #fff; }
 </style>
 </head>
 <body>
@@ -881,7 +997,7 @@
         <div class="stat-card">
           <div class="label">status</div>
           <div class="value"><span class="status-dot"></span>Final year</div>
-          <div class="sub">DLSU Manila — graduating mid-2026</div>
+          <div class="sub">DLSU Laguna — graduating mid-2026</div>
         </div>
         <div class="stat-card">
           <div class="label">specialisation</div>
@@ -988,7 +1104,8 @@
             </div>
           </div>
           <div class="project-links">
-            <a href="https://loldope19.itch.io/curation-curiosity-v041" target="_blank" class="project-link">↗ play on itch.io</a>
+            <a href="https://loldope19.itch.io/curation-curiosity" target="_blank" class="project-link">↗ play on itch.io</a>
+            <button class="btn-case-study" onclick="openModal('curation-curiosity')">+ case study</button>
           </div>
         </div>
       </div>
@@ -998,8 +1115,8 @@
         <img src="https://loldope19.github.io/assets/images/beyond-the-thicket.png" alt="" class="project-bg-img" aria-hidden="true">
         <div>
           <span class="project-badge badge-archived">archived</span>
-          <h3 class="project-title">Beyond the Thicket</h3>
-          <p class="project-desc">4-month collaborative project. Designed and implemented the core turn-based combat system — stat architecture, action resolution, and encounter flow.</p>
+          <h3 class="project-title">Through the Thicket</h3>
+          <p class="project-desc">Collaborative RPG prototype. Built the full combat architecture and overworld persistence system — defeated enemies stay gone, player returns to exact position after battle, all data-driven via ScriptableObjects.</p>
           <div class="project-tech">
             <span class="tag highlight">Unity</span>
             <span class="tag highlight">C#</span>
@@ -1009,6 +1126,7 @@
         </div>
         <div class="project-links">
           <a href="https://thicket-studios.itch.io/through-the-thicket" target="_blank" class="project-link">↗ itch.io</a>
+          <button class="btn-case-study" onclick="openModal('beyond-the-thicket')">+ case study</button>
         </div>
       </div>
 
@@ -1028,6 +1146,7 @@
         </div>
         <div class="project-links">
           <a href="https://github.com/loldope19/GDENG03_DirectX3D_Triangle" target="_blank" class="project-link">↗ GitHub</a>
+          <button class="btn-case-study" onclick="openModal('directx-engine')">+ case study</button>
         </div>
       </div>
 
@@ -1199,6 +1318,114 @@
     const x = (e.clientX / window.innerWidth - 0.5) * 40;
     orb.style.transform = `translateX(calc(-50% + ${x}px))`;
   });
+</script>
+
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const PROJECTS = {
+  'curation-curiosity': {
+    eyebrow: 'featured — vertical slice · 2026',
+    title: 'Curation Curiosity',
+    tech: ['Unity', 'C#', 'Addressables', 'New Input System', 'Assembly Definitions', 'ScriptableObjects', 'EditorWindow API', 'Android', 'WebGL'],
+    concept: 'A 3D educational puzzle game where players restore animal totems by correctly identifying biological traits — body covering, limb type, eye structure, and more. Built for Grade 5 students with touchscreen-first interaction: swipe to rotate the totem in 3D space, tap a category, drag a gem toward the correct answer.',
+    role: 'Programming Lead / Systems Engineer — responsible for the full technical architecture, all gameplay systems, the level editor, and the asset pipeline. The design lead authored all level content using the tools I built, without touching any code.',
+    contributions: [
+      { title: 'Assembly Definition Architecture', desc: 'Strict modularisation into isolated Assembly Definitions across the entire codebase. No Update() polling anywhere — all runtime communication is event-driven through C# Actions broadcast from a central GameManager that is fully decoupled from UI assemblies.' },
+      { title: 'Custom Level Editor (CurationLevelEditor)', desc: 'Custom EditorWindow tool that lets a designer create a complete level — hitboxes, particle emitter locations, animal characteristics, trait options — without touching code. Dropping a raw .fbx into the tool and clicking "Convert & Auto-Assign" produces a fully configured level prefab. The design lead produced all playable levels using this tool.' },
+      { title: 'Addressables Asset Pipeline', desc: 'Asynchronous loading system grouping level assets and 3D models into separate asset bundles. Only the assets required for the current scene are loaded into RAM — critical for Android hardware constraints.' },
+      { title: 'Event-Driven Touch Input', desc: 'Custom touch detection state machine via Unity\'s New Input System that differentiates between a deliberate tap and a drag-to-rotate gesture. Fully event-driven raycasting — no polling loops.' },
+      { title: 'Particle Object Pooler (ParticlePoolManager)', desc: 'Native ObjectPool-backed particle manager for all visual effects. Physics colliders for calibration hitboxes also use strict pooling — zero dynamic instantiation during the core gameplay loop, eliminating GC allocation spikes on low-end Android devices.' },
+      { title: 'Android Performance & Runtime Systems', desc: '30 FPS lock, screen-sleep prevention, and a centralised AudioManager for BGM and SFX. Dynamic level selection UI generated at runtime from ScriptableObject data — adding a level requires placing a new AnimalData asset in the correct folder, no code changes required.' },
+    ],
+    links: [
+      { label: '↗ play on itch.io', href: 'https://loldope19.itch.io/curation-curiosity-v041' },
+      { label: '↗ github', href: 'https://github.com/loldope19' },
+    ]
+  },
+  'beyond-the-thicket': {
+    eyebrow: 'collaborative project · 2025',
+    title: 'Through the Thicket',
+    tech: ['Unity', 'C#', 'ScriptableObjects', 'Combat Systems', 'Singleton Pattern', 'Scene Management'],
+    concept: 'A collaborative RPG where players explore an overworld and engage in turn-based combat encounters. Built as a prototype with a persistent overworld system — defeated enemies stay defeated across scene transitions, and the player returns to their exact position after combat.',
+    role: 'Contracted Programmer — brought in to design and implement the core combat architecture and overworld persistence layer. Delivered a complete, documented handover so the permanent team could extend the system without additional support.',
+    contributions: [
+      { title: 'GameManager (Persistent Singleton)', desc: 'Built the central GameManager as a DontDestroyOnLoad singleton, accessible globally via GameManager.Instance. Tracks defeated enemy IDs via a HashSet and remembers player position in the overworld across scene transitions — the foundation all other systems depend on.' },
+      { title: 'CombatManager & State Machine', desc: 'Implemented the CombatScene controller using a CombatState enum (ChoosingAction, TargetingEnemy, Busy) to control battle flow and prevent input during transitions. Manages enemy UI instantiation, action menus, and target selection.' },
+      { title: 'Overworld Enemy Persistence System', desc: 'Each overworld enemy has a generated unique ID. On defeat, the ID is logged in the GameManager — enemies never respawn once cleared. Built with a custom EditorWindow button to generate IDs directly from the Inspector without touching code.' },
+      { title: 'EncounterData ScriptableObject Workflow', desc: 'Designed a data-driven encounter system using ScriptableObjects — designers can create new encounters by configuring enemy prefabs, backgrounds, and music in an asset, then dragging it onto an overworld enemy. No code changes required to add content.' },
+      { title: 'Technical Handover Documentation', desc: 'Wrote a full system handover guide for the permanent team covering architecture decisions, workflow for creating new encounters, critical reminders, and common pitfalls — enabling the project to continue without my involvement.' },
+    ],
+    links: [
+      { label: '↗ play on itch.io', href: 'https://thicket-studios.itch.io/through-the-thicket' },
+    ]
+  },
+  'directx-engine': {
+    eyebrow: 'coursework — GDENG03 · 2024',
+    title: 'DirectX 11 Rendering Engine',
+    tech: ['C++', 'DirectX 11', 'HLSL'],
+    concept: 'A rendering engine built from scratch for GDENG03 — no engine abstraction, raw DirectX 11 API. The goal was to understand the full rendering pipeline at the hardware interface level: device setup, resource management, shader compilation, and the main render loop.',
+    role: 'Solo developer for the personal implementation. Contributed the fog and shader systems to a separate group variant built collaboratively.',
+    contributions: [
+      { title: 'Core Rendering Pipeline', desc: 'Full DirectX 11 pipeline from scratch — device and swap chain initialisation, render target and depth stencil setup, and the main render loop. No engine layer between the code and the GPU.' },
+      { title: 'Fog & Shader Systems', desc: 'Implemented distance-based atmospheric fog via HLSL pixel shaders in the group variant. Direct experience writing, compiling, and debugging shaders at the HLSL level.' },
+    ],
+    links: [
+      { label: '↗ github (personal)', href: 'https://github.com/loldope19/GDENG03_DirectX3D_Triangle' },
+      { label: '↗ github (group)', href: 'https://github.com/FurehXD/GDENG03-Engine' },
+    ]
+  }
+};
+
+function openModal(id) {
+  const p = PROJECTS[id];
+  if (!p) return;
+  const tags = p.tech.map(t => `<span class="tag">${t}</span>`).join('');
+  const contribs = p.contributions.map(c => `
+    <div class="modal-contrib-item">
+      <div class="contrib-title">${c.title}</div>
+      <p class="contrib-desc">${c.desc}</p>
+    </div>`).join('');
+  const links = p.links.map(l => `<a href="${l.href}" target="_blank" class="project-link">${l.label}</a>`).join('');
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-eyebrow">${p.eyebrow}</div>
+    <div class="modal-title">${p.title}</div>
+    <div class="project-tech" style="margin-bottom:0">${tags}</div>
+    <div class="modal-section">
+      <div class="modal-section-title">concept</div>
+      <p>${p.concept}</p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">my role</div>
+      <p>${p.role}</p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">key contributions</div>
+      <div class="modal-contrib">${contribs}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">links</div>
+      <div class="modal-links">${links}</div>
+    </div>`;
+  document.getElementById('modalBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModalDirect() {
+  document.getElementById('modalBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalBackdrop')) closeModalDirect();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
 </script>
 </body>
 </html>
