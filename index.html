@@ -1104,7 +1104,8 @@
             </div>
           </div>
           <div class="project-links">
-            <a href="https://loldope19.itch.io/curation-curiosity" target="_blank" class="project-link">↗ play on itch.io</a>
+            <a href="https://loldope19.itch.io/curation-curiosity-v041" target="_blank" class="project-link">↗ play on itch.io</a>
+            <a href="https://youtu.be/7LQwD79f_xo" target="_blank" class="project-link">↗ video demo</a>
             <button class="btn-case-study" onclick="openModal('curation-curiosity')">+ case study</button>
           </div>
         </div>
@@ -1136,7 +1137,7 @@
         <div>
           <span class="project-badge badge-archived">archived — coursework</span>
           <h3 class="project-title">DirectX 11 Rendering Engine</h3>
-          <p class="project-desc">Personal implementation of a rendering pipeline from scratch for GDENG03. Core pipeline, fog system, and shader architecture. Group variant includes collaborative contributions.</p>
+          <p class="project-desc">A rendering engine built from scratch in C++ and DirectX 11 for GDENG03 — no engine abstraction. Covers the full pipeline from first triangle to ECS, IMGUI editor UI, scene management, texturing, and a freefly camera system.</p>
           <div class="project-tech">
             <span class="tag highlight">C++</span>
             <span class="tag highlight">DirectX 11</span>
@@ -1332,20 +1333,21 @@ const PROJECTS = {
   'curation-curiosity': {
     eyebrow: 'featured — vertical slice · 2026',
     title: 'Curation Curiosity',
+    video: '7LQwD79f_xo',
     tech: ['Unity', 'C#', 'Addressables', 'New Input System', 'Assembly Definitions', 'ScriptableObjects', 'EditorWindow API', 'Android', 'WebGL'],
     concept: 'A 3D educational puzzle game where players restore animal totems by correctly identifying biological traits — body covering, limb type, eye structure, and more. Built for Grade 5 students with touchscreen-first interaction: swipe to rotate the totem in 3D space, tap a category, drag a gem toward the correct answer.',
     role: 'Programming Lead / Systems Engineer — responsible for the full technical architecture, all gameplay systems, the level editor, and the asset pipeline. The design lead authored all level content using the tools I built, without touching any code.',
     contributions: [
       { title: 'Assembly Definition Architecture', desc: 'Strict modularisation into isolated Assembly Definitions across the entire codebase. No Update() polling anywhere — all runtime communication is event-driven through C# Actions broadcast from a central GameManager that is fully decoupled from UI assemblies.' },
-      { title: 'Custom Level Editor (CurationLevelEditor)', desc: 'Custom EditorWindow tool that lets a designer create a complete level — hitboxes, particle emitter locations, animal characteristics, trait options — without touching code. Dropping a raw .fbx into the tool and clicking "Convert & Auto-Assign" produces a fully configured level prefab. The design lead produced most of the playable levels using this tool.' },
+      { title: 'Custom Level Editor (CurationLevelEditor)', desc: 'Custom EditorWindow tool that lets a designer create a complete level — hitboxes, particle emitter locations, animal characteristics, trait options — without touching code. Dropping a raw .fbx into the tool and clicking "Convert & Auto-Assign" produces a fully configured level prefab. The design lead produced all playable levels using this tool.' },
       { title: 'Addressables Asset Pipeline', desc: 'Asynchronous loading system grouping level assets and 3D models into separate asset bundles. Only the assets required for the current scene are loaded into RAM — critical for Android hardware constraints.' },
       { title: 'Event-Driven Touch Input', desc: 'Custom touch detection state machine via Unity\'s New Input System that differentiates between a deliberate tap and a drag-to-rotate gesture. Fully event-driven raycasting — no polling loops.' },
       { title: 'Particle Object Pooler (ParticlePoolManager)', desc: 'Native ObjectPool-backed particle manager for all visual effects. Physics colliders for calibration hitboxes also use strict pooling — zero dynamic instantiation during the core gameplay loop, eliminating GC allocation spikes on low-end Android devices.' },
       { title: 'Android Performance & Runtime Systems', desc: '30 FPS lock, screen-sleep prevention, and a centralised AudioManager for BGM and SFX. Dynamic level selection UI generated at runtime from ScriptableObject data — adding a level requires placing a new AnimalData asset in the correct folder, no code changes required.' },
     ],
     links: [
-      { label: '↗ play on itch.io', href: 'https://loldope19.itch.io/curation-curiosity' },
-      { label: '↗ github', href: 'https://github.com/loldope19/Curation-Curiosity' },
+      { label: '↗ play on itch.io', href: 'https://loldope19.itch.io/curation-curiosity-v041' },
+      { label: '↗ github', href: 'https://github.com/loldope19' },
     ]
   },
   'beyond-the-thicket': {
@@ -1366,14 +1368,18 @@ const PROJECTS = {
     ]
   },
   'directx-engine': {
-    eyebrow: 'coursework — GDENG03 · 2024',
+    eyebrow: 'coursework — GDENG03 · May–July 2025',
     title: 'DirectX 11 Rendering Engine',
-    tech: ['C++', 'DirectX 11', 'HLSL'],
-    concept: 'A rendering engine built from scratch for GDENG03 — no engine abstraction, raw DirectX 11 API. The goal was to understand the full rendering pipeline at the hardware interface level: device setup, resource management, shader compilation, and the main render loop.',
-    role: 'Solo developer for the personal implementation. Contributed the fog and shader systems to a separate group variant built collaboratively.',
+    tech: ['C++', 'DirectX 11', 'HLSL', 'IMGUI', 'Entity Component System'],
+    concept: 'A 3D rendering engine built from scratch in C++ and DirectX 11 for GDENG03 (Game Engine Development). No engine abstraction — every system from device initialisation to scene management was implemented against the raw DirectX 11 API. Built incrementally across the full course, from a first triangle to a working ECS with editor UI.',
+    role: 'Solo developer for the personal implementation. Contributed atmospheric fog and shader system architecture to a separate group variant built collaboratively.',
     contributions: [
-      { title: 'Core Rendering Pipeline', desc: 'Full DirectX 11 pipeline from scratch — device and swap chain initialisation, render target and depth stencil setup, and the main render loop. No engine layer between the code and the GPU.' },
-      { title: 'Fog & Shader Systems', desc: 'Implemented distance-based atmospheric fog via HLSL pixel shaders in the group variant. Direct experience writing, compiling, and debugging shaders at the HLSL level.' },
+      { title: 'Full Rendering Pipeline', desc: 'DirectX 11 device, swap chain, render target, and depth stencil setup from scratch. Progressed from rendering primitives (triangles, quads) through multiple objects with correct depth, 3D model loading, and a texturing and shader library.' },
+      { title: 'Engine Time & Animation System', desc: 'Delta-time engine loop driving frame-independent animation. Objects transform over time without coupling to frame rate.' },
+      { title: 'Camera & Input System', desc: 'Freefly camera with right-click-to-activate mouse look and WASD movement relative to camera orientation. Raw DirectX input handling — no engine abstraction layer.' },
+      { title: 'IMGUI Editor UI', desc: 'In-engine editor UI implemented via IMGUI with a UI Manager handling multiple screens and panels. Live scene inspection and control without leaving the running application.' },
+      { title: 'Entity Component System', desc: 'Component-based architecture for scene objects with rigid body components and managed component lifecycle — the structural foundation for a maintainable engine codebase.' },
+      { title: 'Scene Management & Engine States', desc: 'State machine managing application lifecycle transitions. Scene saving and loading for persistent world state.' },
     ],
     links: [
       { label: '↗ github (personal)', href: 'https://github.com/loldope19/GDENG03_DirectX3D_Triangle' },
@@ -1392,10 +1398,18 @@ function openModal(id) {
       <p class="contrib-desc">${c.desc}</p>
     </div>`).join('');
   const links = p.links.map(l => `<a href="${l.href}" target="_blank" class="project-link">${l.label}</a>`).join('');
+  const videoBlock = p.video ? `
+    <div class="modal-section">
+      <div class="modal-section-title">video demo</div>
+      <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:var(--radius);overflow:hidden;margin-top:0.5rem">
+        <iframe src="https://www.youtube.com/embed/${p.video}" title="Video demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius)"></iframe>
+      </div>
+    </div>` : '';
   document.getElementById('modal-content').innerHTML = `
     <div class="modal-eyebrow">${p.eyebrow}</div>
     <div class="modal-title">${p.title}</div>
     <div class="project-tech" style="margin-bottom:0">${tags}</div>
+    ${videoBlock}
     <div class="modal-section">
       <div class="modal-section-title">concept</div>
       <p>${p.concept}</p>
